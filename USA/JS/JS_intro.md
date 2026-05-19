@@ -240,3 +240,121 @@ console.log(x > y);
 ```
 
 Let's see who gets all three correct!
+
+Got it. Replacing with American names:
+
+### JS Variables
+
+* Variables are used to **store values/data** in JavaScript.
+* Think of a variable as a **container or box** that holds information.
+* Variable names should be meaningful.
+
+Example:
+
+```javascript
+let studentName = "John";
+let age = 20;
+```
+
+Here:
+
+* `studentName` stores text
+* `age` stores a number
+
+---
+
+### JS Data Types (General)
+
+JavaScript can store different kinds of data.
+
+**String** → Text values
+
+```javascript
+let name = "John";
+```
+
+**Number** → Numeric values
+
+```javascript
+let marks = 95;
+```
+
+**Boolean** → True or False values
+
+```javascript
+let isPassed = true;
+```
+
+**Undefined** → Variable declared but no value assigned
+
+```javascript
+let city;
+
+console.log(city);
+```
+
+**Null** → Intentionally empty value
+
+```javascript
+let phone = null;
+```
+
+---
+
+### JS Arrays
+
+* Arrays store **multiple values in a single variable**.
+* Array elements are stored using **index positions**.
+* Index starts from **0**.
+
+Example:
+
+```javascript
+let fruits = ["Apple", "Mango", "Orange"];
+
+console.log(fruits[0]);
+console.log(fruits[1]);
+```
+
+Output:
+
+```text
+Apple
+Mango
+```
+
+---
+
+### The `var` Keyword
+
+* `var` was the older way of creating variables in JavaScript.
+* Nowadays `let` and `const` are preferred.
+* `var` can be **redeclared**, which can sometimes create confusion.
+
+Example:
+
+```javascript
+var name = "John";
+
+var name = "Emma";
+
+console.log(name);
+```
+
+Output:
+
+```text
+Emma
+```
+
+Modern approach:
+
+```javascript
+let name = "John";
+const country = "USA";
+```
+
+* `let` → value can change
+* `const` → value should not change
+* `var` → older style, generally avoided in modern JavaScript development.
+
