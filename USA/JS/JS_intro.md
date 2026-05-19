@@ -1,6 +1,4 @@
-Here’s a beginner-friendly continuous interactive script style that you can use while teaching. It keeps the flow conversational and includes small code snippets.
 
----
 
 **So, what is JavaScript? And where do we use it?**
 
