@@ -90,3 +90,95 @@ Array
 
 </body>
 </html>
+
+=============================
+Array using li element
+===========================
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Array Demo</title>
+</head>
+<body>
+
+    <button onclick="showItem()">Show Item</button>
+
+    <ol id="myList"></ol>
+
+    <ol>
+        <li>Car</li>
+    </ol>
+
+    <script>
+        let fruits = ["Apple", "Mango", "Orange"];
+        let index = 0;
+
+        function showItem() {
+            if (index < fruits.length) {
+                
+                let li = document.createElement("li");
+                li.innerHTML ="<strong>" +fruits[index] ;
+                document.getElementById("myList").appendChild(li);
+                index++;
+            } else {
+                alert("All items are displayed.");
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+==============================
+Array using li emement and CSS
+================================
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Array Demo</title>
+
+    <style>
+        .info-band {
+            display: none;
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="showItem()">Show Item</button>
+
+    <ol id="myList"></ol>
+
+    <div id="message" class="info-band">
+        ✓ All items have been displayed.
+    </div>
+
+    <script>
+        let fruits = ["Apple", "Mango", "Orange"];
+        let index = 0;
+
+        function showItem() {
+            if (index < fruits.length) {
+                let li = document.createElement("li");
+                li.innerHTML = fruits[index];
+                document.getElementById("myList").appendChild(li);
+                index++;
+            }
+
+            if (index === fruits.length) {
+                document.getElementById("message").style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
