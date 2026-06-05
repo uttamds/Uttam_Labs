@@ -1,0 +1,47 @@
+===================
+  Fat arrow for mouse events
+===============
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Function Event Demo</title>
+
+    <style>
+        #message {
+            width: 250px;
+            padding: 20px;
+            border: 2px solid black;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="message">Uttam</div>
+
+    <script>
+        let message = document.getElementById("message");
+
+        const foo1 = () => {
+            message.innerHTML = "Using Arrow Functions";
+        };
+  
+        const foo2 = () => {
+            message.style.backgroundColor = "cyan";
+        };
+
+        const foo3 = () => {
+            message.style.backgroundColor = "white";
+        };
+
+        message.onclick = foo1;
+        message.onmouseover = foo2;
+        message.onmouseout = foo3;
+    </script>
+
+</body>
+</html>
