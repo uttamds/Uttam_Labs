@@ -45,3 +45,38 @@
 
 </body>
 </html>
+
+
+==========================
+Fat arrow examples
+==========================
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fat Arrow with Parameters</title>
+</head>
+<body>
+    <input type="number" id="num1" placeholder="Enter first number">
+    <input type="number" id="num2" placeholder="Enter second number">
+
+    <input type="color" id="colorPicker" >
+    <input type = "date" id="datePicker" >
+    
+    <button onclick="addNumbers(document.getElementById('num1').value, 
+    document.getElementById('num2').value)">Add</button>
+ 
+    <p id="result"></p>
+
+    <script>
+        const addNumbers = (a, b) => {
+
+            let num1 = parseFloat(a);   //Number() can also be used instead of parseFloat()
+            let num2 = parseFloat(b);
+            document.getElementById("result").innerHTML = "Sum = " + (num1 + num2);
+        };
+
+        
+    </script>
+
+</body>
+</html>
