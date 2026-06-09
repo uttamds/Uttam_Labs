@@ -80,3 +80,31 @@ Fat arrow examples
 
 </body>
 </html>
+
+===========================
+using loops and arrow fn
+============================
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loop and Fat Arrow Demo</title>
+</head>
+<body>
+    <button onclick="showNames()">Show Names</button>
+    <ul id="list"></ul>
+    <script>
+        let names = ["Rahul", "Priya", "Amit", "Neha"];
+        // Fat Arrow Function
+        let showNames = () => {
+            let list = document.getElementById("list");
+            list.innerHTML = "";
+            // Loop
+            for (let name of names) {
+                list.innerHTML += "<li>" + name + "</li>";
+                console.log(name);
+            }
+        };
+    </script>
+</body>
+</html>
