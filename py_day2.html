@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Programming Fundamentals</title>
+
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background:#f4f7fb;
+        margin:0;
+        padding:0;
+        color:#222;
+    }
+
+    .container{
+        width:90%;
+        max-width:1400px;
+        margin:auto;
+        padding:30px;
+    }
+
+    h1{
+        text-align:center;
+        font-size:48px;
+        color:#0d47a1;
+        margin-bottom:10px;
+    }
+
+    .subtitle{
+        text-align:center;
+        font-size:24px;
+        margin-bottom:30px;
+    }
+
+    .section{
+        background:white;
+        padding:25px;
+        margin-bottom:20px;
+        border-radius:12px;
+        box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    h2{
+        font-size:34px;
+        color:#1565c0;
+        margin-top:0;
+    }
+
+    p{
+        font-size:24px;
+        line-height:1.6;
+    }
+
+    ul{
+        font-size:24px;
+        line-height:1.8;
+    }
+
+    .highlight{
+        background:#e8f5e9;
+        border-left:8px solid #2e7d32;
+        padding:20px;
+        font-size:24px;
+        margin-top:15px;
+    }
+
+    pre{
+        background:#1e1e1e;
+        color:#ffffff;
+        padding:20px;
+        border-radius:8px;
+        font-size:22px;
+        overflow-x:auto;
+    }
+
+    .summary{
+        background:#fff8e1;
+        border-left:8px solid #ff9800;
+        padding:20px;
+        font-size:24px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Python Programming Fundamentals</h1>
+    <div class="subtitle">
+        Conditional Statements • Loops • Functions • Scope
+    </div>
+
+    <!-- Conditional Statements -->
+
+    <div class="section">
+        <h2>Conditional Statements</h2>
+
+        <p>
+            Conditional statements allow a program to make decisions based on
+            whether a condition is True or False.
+        </p>
+
+        <ul>
+            <li>if</li>
+            <li>if...else</li>
+            <li>if...elif...else</li>
+            <li>Nested if</li>
+        </ul>
+
+        <div class="highlight">
+            Use conditional statements whenever the program needs to choose
+            between multiple paths.
+        </div>
+
+<pre>
+age = 18
+
+if age >= 18:
+    print("Eligible to vote")
+else:
+    print("Not eligible")
+</pre>
+
+    </div>
+
+    <!-- Loops -->
+
+    <div class="section">
+        <h2>Loops</h2>
+
+        <p>
+            Loops are used to execute a block of code repeatedly.
+        </p>
+
+        <ul>
+            <li>for loop</li>
+            <li>while loop</li>
+        </ul>
+
+        <div class="highlight">
+            Loops help avoid writing the same code multiple times.
+        </div>
+
+<pre>
+for i in range(1, 6):
+    print(i)
+</pre>
+
+<pre>
+count = 1
+
+while count <= 5:
+    print(count)
+    count += 1
+</pre>
+
+    </div>
+
+    <!-- Loop Control -->
+
+    <div class="section">
+        <h2>Loop Control Statements</h2>
+
+        <ul>
+            <li><b>break</b> - Exit the loop immediately</li>
+            <li><b>continue</b> - Skip current iteration</li>
+            <li><b>pass</b> - Placeholder statement</li>
+        </ul>
+
+<pre>
+for i in range(1, 10):
+    if i == 5:
+        break
+    print(i)
+</pre>
+
+    </div>
+
+    <!-- Nested Loops -->
+
+    <div class="section">
+        <h2>Nested Loops</h2>
+
+        <p>
+            A loop inside another loop is called a nested loop.
+        </p>
+
+        <div class="highlight">
+            Commonly used for patterns, tables, matrices, and grids.
+        </div>
+
+<pre>
+for row in range(3):
+    for col in range(4):
+        print("*", end=" ")
+    print()
+</pre>
+
+        <p>
+            Output:
+        </p>
+
+<pre>
+* * * *
+* * * *
+* * * *
+</pre>
+
+    </div>
+
+    <!-- Functions -->
+
+    <div class="section">
+        <h2>Functions</h2>
+
+        <p>
+            A function is a reusable block of code designed to perform a specific task.
+        </p>
+
+        <ul>
+            <li>Improves code readability</li>
+            <li>Reduces duplication</li>
+            <li>Makes maintenance easier</li>
+        </ul>
+
+<pre>
+def greet():
+    print("Welcome to Python")
+
+greet()
+</pre>
+
+    </div>
+
+    <!-- Advantages -->
+
+    <div class="section">
+        <h2>Advantages of Functions</h2>
+
+        <ul>
+            <li>Code Reusability</li>
+            <li>Better Organization</li>
+            <li>Easier Testing</li>
+            <li>Reduced Complexity</li>
+            <li>Improved Maintenance</li>
+        </ul>
+    </div>
+
+    <!-- Arguments -->
+
+    <div class="section">
+        <h2>Arguments</h2>
+
+        <p>
+            Arguments are values passed to a function when it is called.
+        </p>
+
+        <div class="highlight">
+            Functions become more flexible when they accept arguments.
+        </div>
+
+<pre>
+def greet(name):
+    print("Hello", name)
+
+greet("Ravi")
+greet("Anita")
+</pre>
+
+        <h3 style="font-size:28px;">Types of Arguments</h3>
+
+        <ul>
+            <li>Positional Arguments</li>
+            <li>Keyword Arguments</li>
+            <li>Default Arguments</li>
+            <li>Variable-Length Arguments</li>
+        </ul>
+
+<pre>
+def show_city(city="Bangalore"):
+    print(city)
+
+show_city()
+show_city("Mysuru")
+</pre>
+
+    </div>
+
+    <!-- Return Values -->
+
+    <div class="section">
+        <h2>Return Values</h2>
+
+        <p>
+            Functions can send a value back to the caller using the return keyword.
+        </p>
+
+<pre>
+def add(a, b):
+    return a + b
+
+result = add(10, 20)
+
+print(result)
+</pre>
+
+        <div class="highlight">
+            return ends the function execution and sends a result back.
+        </div>
+
+    </div>
+
+    <!-- Scope -->
+
+    <div class="section">
+        <h2>Variable Scope</h2>
+
+        <p>
+            Scope determines where a variable can be accessed within a program.
+        </p>
+
+        <ul>
+            <li>Local Scope</li>
+            <li>Global Scope</li>
+        </ul>
+
+    </div>
+
+    <!-- Local Scope -->
+
+    <div class="section">
+        <h2>Local Scope</h2>
+
+        <p>
+            A variable created inside a function is local to that function.
+        </p>
+
+<pre>
+def show():
+    message = "Python"
+
+    print(message)
+
+show()
+</pre>
+
+        <div class="highlight">
+            Local variables cannot be accessed outside the function.
+        </div>
+
+    </div>
+
+    <!-- Global Scope -->
+
+    <div class="section">
+        <h2>Global Scope</h2>
+
+        <p>
+            A variable declared outside all functions is called a global variable.
+        </p>
+
+<pre>
+course = "Python"
+
+def display():
+    print(course)
+
+display()
+</pre>
+
+        <div class="highlight">
+            Global variables can be accessed from multiple functions.
+        </div>
+
+    </div>
+
+    <!-- Local vs Global -->
+
+    <div class="section">
+        <h2>Local vs Global Variables</h2>
+
+        <table style="width:100%; font-size:24px; border-collapse:collapse;">
+            <tr style="background:#e3f2fd;">
+                <th style="padding:15px; border:1px solid #ccc;">Local Variable</th>
+                <th style="padding:15px; border:1px solid #ccc;">Global Variable</th>
+            </tr>
+            <tr>
+                <td style="padding:15px; border:1px solid #ccc;">Created inside a function</td>
+                <td style="padding:15px; border:1px solid #ccc;">Created outside functions</td>
+            </tr>
+            <tr>
+                <td style="padding:15px; border:1px solid #ccc;">Accessible only within function</td>
+                <td style="padding:15px; border:1px solid #ccc;">Accessible throughout program</td>
+            </tr>
+            <tr>
+                <td style="padding:15px; border:1px solid #ccc;">Temporary lifetime</td>
+                <td style="padding:15px; border:1px solid #ccc;">Exists until program ends</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="section">
+        <h2>Quick Summary</h2>
+
+        <div class="summary">
+            ✔ Conditional Statements → Make Decisions<br><br>
+
+            ✔ Loops → Repeat Tasks<br><br>
+
+            ✔ Nested Loops → Loop Inside Another Loop<br><br>
+
+            ✔ Functions → Reusable Blocks of Code<br><br>
+
+            ✔ Arguments → Inputs to Functions<br><br>
+
+            ✔ Return Values → Outputs from Functions<br><br>
+
+            ✔ Scope → Determines Variable Visibility
+        </div>
+    </div>
+<div class="section">
+    <h2>Challenge 1: Reverse a Number</h2>
+
+    <p>
+        Write a program to reverse the digits of a number.
+    </p>
+
+<pre>
+num = 12345
+
+reverse = 0
+
+while num > 0:
+    digit = num % 10
+    reverse = reverse * 10 + digit
+    num = num // 10
+
+print("Reversed Number =", reverse)
+</pre>
+
+    <div class="highlight">
+        Input: 12345<br>
+        Output: 54321
+    </div>
+</div>
+
+
+<div class="section">
+    <h2>Challenge 2: Check if a Number is Palindrome</h2>
+
+    <p>
+        A palindrome number remains the same when reversed.
+    </p>
+
+<pre>
+num = 121
+original = num
+
+reverse = 0
+
+while num > 0:
+    digit = num % 10
+    reverse = reverse * 10 + digit
+    num = num // 10
+
+if original == reverse:
+    print("Palindrome")
+else:
+    print("Not Palindrome")
+</pre>
+
+    <div class="highlight">
+        Examples:<br>
+        121 → Palindrome<br>
+        1331 → Palindrome<br>
+        123 → Not Palindrome
+    </div>
+</div>
+
+
+<div class="section">
+    <h2>Challenge 3: Count Digits in a Number</h2>
+
+<pre>
+num = 987654
+
+count = 0
+
+while num > 0:
+    count += 1
+    num = num // 10
+
+print("Digits =", count)
+</pre>
+
+</div>
+
+
+<div class="section">
+    <h2>Challenge 4: Sum of Digits</h2>
+
+<pre>
+num = 1234
+
+total = 0
+
+while num > 0:
+    digit = num % 10
+    total += digit
+    num = num // 10
+
+print("Sum =", total)
+</pre>
+
+    <div class="highlight">
+        Input: 1234<br>
+        Output: 10
+    </div>
+</div>
+
+
+<div class="section">
+    <h2>Challenge 5: Multiplication Table Using Nested Loop</h2>
+
+<pre>
+for row in range(1, 6):
+    for col in range(1, 6):
+        print(row * col, end="\t")
+    print()
+</pre>
+
+</div>
+
+
+<div class="section">
+    <h2>Challenge 6: Print Star Pattern</h2>
+
+<pre>
+for i in range(1, 6):
+    for j in range(i):
+        print("*", end="")
+    print()
+</pre>
+
+    <div class="highlight">
+*
+<br>**
+<br>***
+<br>****
+<br>*****
+    </div>
+</div>
+
+
+<div class="section">
+    <h2>Challenge 7: Find Largest of Three Numbers</h2>
+
+<pre>
+a = 10
+b = 25
+c = 15
+
+if a >= b and a >= c:
+    print(a)
+elif b >= a and b >= c:
+    print(b)
+else:
+    print(c)
+</pre>
+
+</div>
+
+
+<div class="section">
+    <h2>Challenge 8: Prime Number Check</h2>
+
+<pre>
+num = 13
+
+is_prime = True
+
+for i in range(2, num):
+    if num % i == 0:
+        is_prime = False
+        break
+
+if is_prime:
+    print("Prime")
+else:
+    print("Not Prime")
+</pre>
+
+</div>
+
+
+<div class="section">
+    <h2>Challenge 9: Factorial Using Function</h2>
+
+<pre>
+def factorial(n):
+    result = 1
+
+    for i in range(1, n + 1):
+        result *= i
+
+    return result
+
+print(factorial(5))
+</pre>
+
+</div>
+
+
+<div class="section">
+    <h2>Challenge 10: Fibonacci Series Using Function</h2>
+
+<pre>
+def fibonacci(n):
+
+    a = 0
+    b = 1
+
+    for i in range(n):
+        print(a, end=" ")
+
+        temp = a + b
+        a = b
+        b = temp
+
+fibonacci(10)
+</pre>
+
+</div>
+</div>
+
+</body>
+</html>
