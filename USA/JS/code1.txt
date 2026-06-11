@@ -108,3 +108,56 @@ using loops and arrow fn
     </script>
 </body>
 </html>
+
+
+=================
+
+class objects
+==================
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Class Demo</title>
+</head>
+<body>
+
+    <button onclick="showStudent()">Show Student Details</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        class Student {
+            constructor(name, age, phone) {
+                this.name = name;
+                this.age = age;
+                this.phone = phone;
+            }
+
+            display() {
+                return "Name: " + this.name + "<br>Age: " + this.age + "<br>Phone: " + this.phone;
+            }
+        }
+
+        class Teacher {
+            constructor(name, subject, phone) {
+                this.name = name;
+                this.subject = subject;
+                this.phone = phone;
+            }
+
+            display() {
+                return "Name: " + this.name + "<br>Subject: " + this.subject + "<br>Phone: " + this.phone;
+            }
+        }
+
+        function showStudent() {
+            let s1 = new Student("John", 20, "123-456-0000");
+            let t1 = new Teacher("Alice", "Mathematics", "098-765-4321");
+
+            document.getElementById("result").innerHTML = s1.display();
+        }
+    </script>
+
+</body>
+</html>
