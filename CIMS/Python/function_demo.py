@@ -32,3 +32,29 @@ def total_marks(*marks):
 total_marks(80, 75, 90)
 total_marks(60, 70, 85, 95)
 
+===========================
+keyword args
+========================
+def student_details(**details):
+    print(details)
+
+student_details(name="Rahul", course="Python", city="Mumbai")
+
+==================
+combined
+==================
+def booking(customer, phone, *tickets, **details):
+    print("Customer:", customer)
+    print("Phone:", phone)
+    print("Tickets:", tickets)
+    print("Details:", details)
+
+booking(
+    "Amit",
+    "9876543210",
+    "Goa",
+    "Mumbai",
+    meal="Veg",
+    seat="Window"
+)
+
