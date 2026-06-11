@@ -12,3 +12,20 @@ def book_trip():
     print("Total Bill:", bill)
 
 book_trip()
+=============================================
+
+def calculate_fare(passengers):
+    return passengers * 5000
+
+def total_bill(passengers):
+    fare = calculate_fare(passengers)
+    return fare + 500
+
+def book_trip(name, passengers):
+    print("Customer:", name)
+    print("Total Bill:", total_bill(passengers))
+
+book_trip("Rahul", 2)
+
+
+
