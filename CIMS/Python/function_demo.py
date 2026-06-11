@@ -20,3 +20,15 @@ seat = book_seat()
 print("Seat booked:", seat)     
 bill = calc_bill()
 print("Total bill amount:", bill)
+
+
+=======================
+Positional Arguments
+==========================
+def total_marks(*marks):
+    print("Marks received:", marks)
+    print("Total:", sum(marks))
+
+total_marks(80, 75, 90)
+total_marks(60, 70, 85, 95)
+
