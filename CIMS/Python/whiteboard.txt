@@ -1,23 +1,7 @@
-# Use Case: Remove duplicate email addresses
+# Student marks
+marks = [45, 78, 92, 34, 67, 88, 29]
 
-email_list = [
-    "alice@example.com",
-    "bob@example.com",
-    "alice@example.com",
-    "charlie@example.com",
-    "bob@example.com"
-]
+# Create a list of passed students' marks with a label
+passed_students = [f"Passed: {mark}" for mark in marks if mark >= 50]
 
-print("Original list:")
-print(email_list)
-
-# Convert list to set to remove duplicates
-unique_emails = set(email_list)
-
-print("\nUnique email addresses:")
-print(unique_emails)
-
-# Send notification to each unique email
-print("\nSending notifications:")
-for email in unique_emails:
-    print(f"Notification sent to {email}")
+print(passed_students)
