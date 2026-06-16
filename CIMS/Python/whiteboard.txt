@@ -1,4 +1,5 @@
 
+
 n = int(input("There are how many students? "))
 
 students = []
@@ -21,3 +22,35 @@ for i in range(n):
 print("\nStudent Details")
 for s in students:
     print(s)
+
+=============
+n = 3
+students = {}
+
+print("There are", n, "students")
+
+for i in range(n):
+    print("\nAccept the details as")
+
+    roll = int(input("Roll : "))
+    name = input("Name : ")
+    phone = input("Phone : ")
+
+    marks = []
+    print("Marks in 3 subjects")
+    for j in range(3):
+        marks.append(int(input()))
+
+    students[roll] = {
+        "Name": name,
+        "Phone": phone,
+        "Marks": marks
+    }
+
+print("\nStudent Details")
+for roll, details in students.items():
+    print("Roll :", roll)
+    print("Name :", details["Name"])
+    print("Phone :", details["Phone"])
+    print("Marks :", details["Marks"])
+    print()
