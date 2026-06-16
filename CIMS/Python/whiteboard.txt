@@ -1,7 +1,35 @@
-# Student marks
-marks = [45, 78, 92, 34, 67, 88, 29]
+# User input
+full_name = "  John Doe  "
 
-# Create a list of passed students' marks with a label
-passed_students = [f"Passed: {mark}" for mark in marks if mark >= 50]
+# Remove leading/trailing spaces
+name = full_name.strip()
 
-print(passed_students)
+print("Original:", full_name)
+print("After strip:", name)
+
+# Convert case
+print("Upper:", name.upper())
+print("Lower:", name.lower())
+print("Title:", name.title())
+
+# Length
+print("Length:", len(name))
+
+# Replace text
+print("Replace Doe with Smith:", name.replace("Doe", "Smith"))
+
+# Check content
+print("Starts with John?", name.startswith("John"))
+print("Contains 'Doe'?", "Doe" in name)
+
+# Split into words
+words = name.split()
+print("Words:", words)
+
+# Join words
+joined = "-".join(words)
+print("Joined:", joined)
+
+# String formatting
+first_name = words[0]
+print(f"Welcome, {first_name}!")
