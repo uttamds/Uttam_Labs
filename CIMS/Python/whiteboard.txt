@@ -1,3 +1,23 @@
-Create a list of your frnds and add 5 names of your frnds.
 
-Hint: use list and loop
+n = int(input("There are how many students? "))
+
+students = []
+
+for i in range(n):
+    print("\nAccept the details as")
+
+    roll = int(input("Roll : "))
+    name = input("Name : ")
+    phone = input("Phone : ")
+
+    marks = []
+    print("Enter marks in 3 subjects")
+    for j in range(3):
+        marks.append(int(input(f"Subject {j+1}: ")))
+
+    student = (roll, name, phone, marks)
+    students.append(student)
+
+print("\nStudent Details")
+for s in students:
+    print(s)
