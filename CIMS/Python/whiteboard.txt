@@ -1,7 +1,6 @@
-# Student marks
 marks = [45, 78, 92, 34, 67, 88, 29]
 
 # Create a list of passed students' marks with a label
-passed_students = [f"Passed: {mark}" for mark in marks if mark >= 50]
+passed_students = [f"Passed: {mark}" if mark >= 50 else f"fail : {mark}" for mark in marks]
 
 print(passed_students)
