@@ -1,3 +1,8 @@
+
+<img width="1749" height="984" alt="image" src="https://github.com/user-attachments/assets/e0bd8d62-3272-49e1-950c-f6184a9eed73" />
+
+
+
 After installing Cypress, a simple training flow would be:
 
 ### 1. Open Cypress
