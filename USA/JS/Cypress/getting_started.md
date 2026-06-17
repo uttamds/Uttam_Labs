@@ -1,6 +1,16 @@
 
 <img width="1749" height="984" alt="image" src="https://github.com/user-attachments/assets/e0bd8d62-3272-49e1-950c-f6184a9eed73" />
 
+# Step2
+<img width="1891" height="963" alt="image" src="https://github.com/user-attachments/assets/095f2f8a-5185-4276-9ece-cebaa9f3e99b" />
+
+# Step3
+<img width="1333" height="773" alt="image" src="https://github.com/user-attachments/assets/0ff87c52-c8cc-4681-9aac-a7e9b9544a53" />
+
+# Step 4
+
+<img width="1240" height="710" alt="image" src="https://github.com/user-attachments/assets/4ac799d3-f0f6-4434-97b6-52e655a488c4" />
+
 
 
 After installing Cypress, a simple training flow would be:
