@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Advanced Concepts</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: Segoe UI, Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0d47a1;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: #fff;
+            border-left: 6px solid #0d47a1;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+        }
+
+        h2 {
+            color: #0d47a1;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #1565c0;
+        }
+
+        code {
+            display: block;
+            background: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Python Advanced Concepts - Quick Reference</h1>
+
+    <div class="container">
+
+        <!-- MODULES -->
+        <div class="card">
+            <h2>Modules</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                A module is a Python file containing functions, variables, and classes that can be reused.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Organize code into reusable components.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+# math_demo.py
+def greet():
+    print("Hello")
+
+# main.py
+import math_demo
+math_demo.greet()
+</code>
+            </div>
+        </div>
+
+        <!-- PACKAGES -->
+        <div class="card">
+            <h2>Packages</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                A package is a collection of related modules organized in folders.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Manage large applications with modular structure.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+project/
+ └── utilities/
+      ├── __init__.py
+      └── calc.py
+
+from utilities.calc import add
+</code>
+            </div>
+        </div>
+
+        <!-- EXCEPTION HANDLING -->
+        <div class="card">
+            <h2>Exception Handling</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                Exception handling prevents program crashes by handling runtime errors.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Validate user input and manage unexpected situations.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+try:
+    n = int(input("Number: "))
+    print(100/n)
+
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+except ValueError:
+    print("Invalid input")
+</code>
+            </div>
+        </div>
+
+        <!-- FILE HANDLING -->
+        <div class="card">
+            <h2>File Handling</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                Reading from and writing data to files.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Store application data, logs, reports, and records.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+with open("data.txt","w") as f:
+    f.write("Hello Python")
+
+with open("data.txt","r") as f:
+    print(f.read())
+</code>
+            </div>
+        </div>
+
+        <!-- LAMBDA -->
+        <div class="card">
+            <h2>Lambda Functions</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                Anonymous one-line functions created using lambda keyword.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Short functions used with sorting, map, filter, etc.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+square = lambda x: x*x
+print(square(5))
+</code>
+            </div>
+        </div>
+
+        <!-- MAP -->
+        <div class="card">
+            <h2>Map()</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                Applies a function to every item in an iterable.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Transform entire collections efficiently.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+nums = [1,2,3,4]
+
+result = list(map(
+    lambda x:x*x,
+    nums
+))
+
+print(result)
+</code>
+            </div>
+        </div>
+
+        <!-- FILTER -->
+        <div class="card">
+            <h2>Filter()</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                Filters elements based on a condition.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Extract matching records from collections.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+nums = [1,2,3,4,5,6]
+
+even = list(filter(
+    lambda x:x%2==0,
+    nums
+))
+
+print(even)
+</code>
+            </div>
+        </div>
+
+        <!-- REDUCE -->
+        <div class="card">
+            <h2>Reduce()</h2>
+
+            <div class="section">
+                <span class="label">Definition:</span>
+                Reduces an iterable to a single value using cumulative computation.
+            </div>
+
+            <div class="section">
+                <span class="label">Use Case:</span>
+                Calculate sum, product, maximum, etc.
+            </div>
+
+            <div class="section">
+                <span class="label">Sample Code:</span>
+                <code>
+from functools import reduce
+
+nums = [1,2,3,4]
+
+total = reduce(
+    lambda a,b:a+b,
+    nums
+)
+
+print(total)
+</code>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
