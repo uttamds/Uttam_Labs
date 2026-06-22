@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python OOP Concepts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #eef2f3, #dfe9f3);
+            color: #222;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1f3c88, #39a2db);
+            color: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .toc {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .toc h2 {
+            color: #1f3c88;
+            margin-bottom: 12px;
+        }
+
+        .toc ul {
+            columns: 2;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+            font-size: 18px;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #0b5ed7;
+            font-weight: bold;
+        }
+
+        .topic {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border-left: 8px solid #1f3c88;
+        }
+
+        .topic h2 {
+            color: #1f3c88;
+            margin-bottom: 12px;
+            font-size: 30px;
+        }
+
+        .topic p {
+            font-size: 19px;
+            margin-bottom: 14px;
+        }
+
+        .topic ul {
+            margin-left: 25px;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .code-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0b5ed7;
+            margin: 15px 0 8px;
+        }
+
+        pre {
+            background: #111827;
+            color: #f8f8f2;
+            padding: 18px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-top: 8px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .highlight {
+            background: #f4f8ff;
+            border-left: 5px solid #39a2db;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #1f3c88, #39a2db);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .summary h2 {
+            margin-bottom: 14px;
+            font-size: 30px;
+        }
+
+        .summary ul {
+            margin-left: 22px;
+            font-size: 18px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p,
+            .topic p,
+            .topic ul,
+            .summary ul {
+                font-size: 17px;
+            }
+
+            .topic h2 {
+                font-size: 25px;
+            }
+
+            .toc ul {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="hero">
+            <h1>Object-Oriented Programming (OOP) in Python</h1>
+            <p>
+                This page covers the core OOP concepts in Python:
+                <strong>Classes, Objects, Constructors, Inheritance, Polymorphism, Encapsulation, and
+                    Abstraction</strong>.
+            </p>
+        </div>
+
+        <div class="toc">
+            <h2>Topics Covered</h2>
+            <ul>
+                <li><a href="#classes">1. Classes</a></li>
+                <li><a href="#objects">2. Objects</a></li>
+                <li><a href="#constructors">3. Constructors</a></li>
+                <li><a href="#inheritance">4. Inheritance</a></li>
+                <li><a href="#polymorphism">5. Polymorphism</a></li>
+                <li><a href="#encapsulation">6. Encapsulation</a></li>
+                <li><a href="#abstraction">7. Abstraction</a></li>
+            </ul>
+        </div>
+
+        <!-- CLASSES -->
+        <section class="topic" id="classes">
+            <h2>1. Classes</h2>
+            <p>
+                A <strong>class</strong> is a blueprint or template used to create objects.
+                It defines the <strong>attributes (data)</strong> and <strong>methods (behavior)</strong>
+                that the objects created from the class will have.
+            </p>
+
+            <ul>
+                <li>A class groups related data and functions together.</li>
+                <li>It helps organize code in a structured and reusable way.</li>
+                <li>It acts as a design for real-world entities such as Student, Car, BankAccount, etc.</li>
+            </ul>
+
+            <div class="code-title">Example: Defining a Class</div>
+            <pre><code>class Student:
+    college = "ABC College"   # class attribute
+
+    def study(self):
+        print("Student is studying")</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> A class is the design; objects are the actual things created from that
+                design.
+            </div>
+        </section>
+
+        <!-- OBJECTS -->
+        <section class="topic" id="objects">
+            <h2>2. Objects</h2>
+            <p>
+                An <strong>object</strong> is an instance of a class. Once a class is created,
+                we can create multiple objects from it. Each object can hold its own data.
+            </p>
+
+            <ul>
+                <li>Objects represent real-world entities.</li>
+                <li>Each object can have different values for its attributes.</li>
+                <li>Objects can call the methods defined inside the class.</li>
+            </ul>
+
+            <div class="code-title">Example: Creating Objects</div>
+            <pre><code>class Student:
+    def study(self):
+        print("Student is studying")
+
+s1 = Student()
+s2 = Student()
+
+s1.study()
+s2.study()</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> If <code>Student</code> is a class, then <code>s1</code> and <code>s2</code>
+                are objects of that class.
+            </div>
+        </section>
+
+        <!-- CONSTRUCTORS -->
+        <section class="topic" id="constructors">
+            <h2>3. Constructors</h2>
+            <p>
+                A <strong>constructor</strong> is a special method that runs automatically when an object is created.
+                In Python, the constructor is written using <code>__init__()</code>.
+            </p>
+
+            <ul>
+                <li>Used to initialize object data.</li>
+                <li>Allows each object to start with different values.</li>
+                <li>Commonly used to assign values to instance variables.</li>
+            </ul>
+
+            <div class="code-title">Example: Constructor in Python</div>
+            <pre><code>class Student:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
+
+    def display(self):
+        print("Name:", self.name)
+        print("Marks:", self.marks)
+
+s1 = Student("Amit", 88)
+s1.display()</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> <code>__init__()</code> helps set up the object with initial values when it
+                is created.
+            </div>
+        </section>
+
+        <!-- INHERITANCE -->
+        <section class="topic" id="inheritance">
+            <h2>4. Inheritance</h2>
+            <p>
+                <strong>Inheritance</strong> allows one class to acquire the properties and methods of another class.
+                The existing class is called the <strong>parent/base class</strong>, and the new class is called the
+                <strong>child/derived class</strong>.
+            </p>
+
+            <ul>
+                <li>Promotes code reuse.</li>
+                <li>Helps build relationships between classes.</li>
+                <li>A child class can use parent features and also add its own features.</li>
+            </ul>
+
+            <div class="code-title">Example: Inheritance</div>
+            <pre><code>class Person:
+    def show_person(self):
+        print("I am a person")
+
+class Student(Person):
+    def show_student(self):
+        print("I am a student")
+
+s = Student()
+s.show_person()
+s.show_student()</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> The child class can reuse the methods of the parent class.
+            </div>
+        </section>
+
+        <!-- POLYMORPHISM -->
+        <section class="topic" id="polymorphism">
+            <h2>5. Polymorphism</h2>
+            <p>
+                <strong>Polymorphism</strong> means “many forms”.
+                The same method name can behave differently depending on the object or context.
+            </p>
+
+            <ul>
+                <li>One interface, multiple implementations.</li>
+                <li>Makes code flexible and scalable.</li>
+                <li>Commonly seen in method overriding.</li>
+            </ul>
+
+            <div class="code-title">Example: Polymorphism using Method Overriding</div>
+            <pre><code>class Animal:
+    def sound(self):
+        print("Animal makes a sound")
+
+class Dog(Animal):
+    def sound(self):
+        print("Dog barks")
+
+class Cat(Animal):
+    def sound(self):
+        print("Cat meows")
+
+a1 = Dog()
+a2 = Cat()
+
+a1.sound()
+a2.sound()</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> The same method <code>sound()</code> behaves differently for Dog and Cat.
+            </div>
+        </section>
+
+        <!-- ENCAPSULATION -->
+        <section class="topic" id="encapsulation">
+            <h2>6. Encapsulation</h2>
+            <p>
+                <strong>Encapsulation</strong> means wrapping data and methods into a single unit (class)
+                and controlling direct access to data.
+            </p>
+
+            <ul>
+                <li>Protects object data from accidental modification.</li>
+                <li>Improves security and maintainability.</li>
+                <li>In Python, private members are indicated using double underscore <code>__</code>.</li>
+            </ul>
+
+            <div class="code-title">Example: Encapsulation</div>
+            <pre><code>class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance   # private variable
+
+    def deposit(self, amount):
+        self.__balance += amount
+
+    def get_balance(self):
+        return self.__balance
+
+acc = BankAccount(5000)
+acc.deposit(2000)
+print("Balance:", acc.get_balance())</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> Data is hidden inside the class and accessed using methods like
+                <code>get_balance()</code>.
+            </div>
+        </section>
+
+        <!-- ABSTRACTION -->
+        <section class="topic" id="abstraction">
+            <h2>7. Abstraction</h2>
+            <p>
+                <strong>Abstraction</strong> means showing only the important features and hiding internal
+                implementation details.
+                It focuses on <strong>what an object does</strong> instead of <strong>how it does it</strong>.
+            </p>
+
+            <ul>
+                <li>Reduces complexity.</li>
+                <li>Improves code design and readability.</li>
+                <li>In Python, abstraction is often implemented using the <code>ABC</code> module.</li>
+            </ul>
+
+            <div class="code-title">Example: Abstraction using Abstract Class</div>
+            <pre><code>from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def start(self):
+        pass
+
+class Car(Vehicle):
+    def start(self):
+        print("Car starts with a key or button")
+
+c = Car()
+c.start()</code></pre>
+
+            <div class="highlight">
+                <strong>Key idea:</strong> The abstract class defines what must be done, while the child class provides
+                the actual implementation.
+            </div>
+        </section>
+
+        <!-- SUMMARY -->
+        <section class="summary">
+            <h2>OOP Summary</h2>
+            <ul>
+                <li><strong>Class</strong> → Blueprint for creating objects</li>
+                <li><strong>Object</strong> → Instance of a class</li>
+                <li><strong>Constructor</strong> → Initializes object data using <code>__init__()</code></li>
+                <li><strong>Inheritance</strong> → One class acquires properties of another class</li>
+                <li><strong>Polymorphism</strong> → Same method behaves differently for different objects</li>
+                <li><strong>Encapsulation</strong> → Protecting data by wrapping it inside a class</li>
+                <li><strong>Abstraction</strong> → Hiding implementation and showing essential features only</li>
+            </ul>
+        </section>
+
+        <div class="footer">
+            Python OOP Concepts | Training Presentation Page
+        </div>
+
+    </div>
+</body>
+
+</html>
