@@ -103,5 +103,24 @@ cash = Cash()
 
 # Same function call, different behavior
 make_payment(cc, 1500)
+
+============
+encapsulation
+=========
+class BankAcc:
+    def __init__(self, accno, pin):
+        self.__pin = pin
+        self.accno = accno
+
+    def showpin(self):
+        print("Enter OTP")
+        if int(input()) == 3939:
+            print("Pin =", self.__pin)
+        else:
+            print("Invalid OTP")
+
+
+b1 = BankAcc(2323, 8888)
+b1.showpin()
 make_payment(upi, 800)
 make_payment(cash, 300)
