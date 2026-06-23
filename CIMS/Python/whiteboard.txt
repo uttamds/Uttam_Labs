@@ -1,49 +1,31 @@
-class Emp:
-    def __init__(self, empname, empcode, address, pan, aadhaar):
-        self.empname = empname
-        self.empcode = empcode
-        self.address = address
-        self.pan = pan
-        self.aadhaar = aadhaar
+class Payment:
+    def pay(self, amount):
+        print(f"Paying ₹{amount}")
 
-    def show_emp_details(self):
-        print("Employee Name :", self.empname)
-        print("Employee Code :", self.empcode)
-        print("Address       :", self.address)
-        print("PAN           :", self.pan)
-        print("Aadhaar       :", self.aadhaar)
+class CreditCard(Payment):
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using Credit Card")
 
+class UPI(Payment):
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using UPI")
 
-class Supervisor(Emp):
-    def __init__(self, empname, empcode, address, pan, aadhaar, team_size):
-        super().__init__(empname, empcode, address, pan, aadhaar)
-        self.team_size = team_size
-
-    def show_supervisor_details(self):
-        self.show_emp_details()
-        print("Team Size     :", self.team_size)
+class Cash(Payment):
+    def pay(self, amount):
+        print(f"Paid ₹{amount} using Cash")
 
 
-class Accountant(Emp):
-    def __init__(self, empname, empcode, address, pan, aadhaar, branchcode, agencycode, unitcode):
-        super().__init__(empname, empcode, address, pan, aadhaar)
-        self.branchcode = branchcode
-        self.agencycode = agencycode
-        self.unitcode = unitcode
-
-    def show_accountant_details(self):
-        self.show_emp_details()
-        print("Branch Code   :", self.branchcode)
-        print("Agency Code   :", self.agencycode)
-        print("Unit Code     :", self.unitcode)
+# Function showing polymorphism
+def make_payment(payment_method, amount):
+    payment_method.pay(amount)
 
 
-# Creating objects
-s1 = Supervisor("Ravi", "E101", "Mumbai", "ABCDE1234F", "123456789012", 12)
-a1 = Accountant("Priya", "E102", "Pune", "PQRSX5678K", "987654321098", "B001", "A450", "U900")
+# Objects of different classes
+cc = CreditCard()
+upi = UPI()
+cash = Cash()
 
-print("----- Supervisor Details -----")
-s1.show_supervisor_details()
-
-print("\n----- Accountant Details -----")
-a1.show_accountant_details()
+# Same function call, different behavior
+make_payment(cc, 1500)
+make_payment(upi, 800)
+make_payment(cash, 300)
