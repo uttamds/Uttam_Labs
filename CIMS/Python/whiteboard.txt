@@ -1,3 +1,39 @@
+
+class TravelRoute:
+    def __init__(self, route_id, source, destination, fare, seats):
+        self.route_id = route_id
+        self.source = source
+        self.destination = destination
+        self.fare = fare
+        self.seats = seats
+
+    def display_route(self):
+        print("Route ID      :", self.route_id)
+        print("Source        :", self.source)
+        print("Destination   :", self.destination)
+        print("Fare          :", self.fare)
+        print("Seats Available:", self.seats)
+        print("-" * 35)
+
+
+# Creating objects for ABC Travel Company routes
+route1 = TravelRoute("R101", "Mumbai", "Pune", 800, 25)
+route2 = TravelRoute("R102", "Mumbai", "Goa", 2500, 18)
+route3 = TravelRoute("R103", "Pune", "Nagpur", 1800, 20)
+
+# Displaying route details
+print("ABC Travel Company - Available Routes")
+print("=" * 40)
+
+route1.display_route()
+route2.display_route()
+route3.display_route()
+
+=========================
+polymorphism
+============================
+
+
 class Payment:
     def pay(self, amount):
         print(f"Paying ₹{amount}")
