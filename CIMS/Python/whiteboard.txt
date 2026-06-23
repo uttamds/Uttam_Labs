@@ -1,35 +1,49 @@
-# User input
-full_name = "  John Doe  "
+class Emp:
+    def __init__(self, empname, empcode, address, pan, aadhaar):
+        self.empname = empname
+        self.empcode = empcode
+        self.address = address
+        self.pan = pan
+        self.aadhaar = aadhaar
 
-# Remove leading/trailing spaces
-name = full_name.strip()
+    def show_emp_details(self):
+        print("Employee Name :", self.empname)
+        print("Employee Code :", self.empcode)
+        print("Address       :", self.address)
+        print("PAN           :", self.pan)
+        print("Aadhaar       :", self.aadhaar)
 
-print("Original:", full_name)
-print("After strip:", name)
 
-# Convert case
-print("Upper:", name.upper())
-print("Lower:", name.lower())
-print("Title:", name.title())
+class Supervisor(Emp):
+    def __init__(self, empname, empcode, address, pan, aadhaar, team_size):
+        super().__init__(empname, empcode, address, pan, aadhaar)
+        self.team_size = team_size
 
-# Length
-print("Length:", len(name))
+    def show_supervisor_details(self):
+        self.show_emp_details()
+        print("Team Size     :", self.team_size)
 
-# Replace text
-print("Replace Doe with Smith:", name.replace("Doe", "Smith"))
 
-# Check content
-print("Starts with John?", name.startswith("John"))
-print("Contains 'Doe'?", "Doe" in name)
+class Accountant(Emp):
+    def __init__(self, empname, empcode, address, pan, aadhaar, branchcode, agencycode, unitcode):
+        super().__init__(empname, empcode, address, pan, aadhaar)
+        self.branchcode = branchcode
+        self.agencycode = agencycode
+        self.unitcode = unitcode
 
-# Split into words
-words = name.split()
-print("Words:", words)
+    def show_accountant_details(self):
+        self.show_emp_details()
+        print("Branch Code   :", self.branchcode)
+        print("Agency Code   :", self.agencycode)
+        print("Unit Code     :", self.unitcode)
 
-# Join words
-joined = "-".join(words)
-print("Joined:", joined)
 
-# String formatting
-first_name = words[0]
-print(f"Welcome, {first_name}!")
+# Creating objects
+s1 = Supervisor("Ravi", "E101", "Mumbai", "ABCDE1234F", "123456789012", 12)
+a1 = Accountant("Priya", "E102", "Pune", "PQRSX5678K", "987654321098", "B001", "A450", "U900")
+
+print("----- Supervisor Details -----")
+s1.show_supervisor_details()
+
+print("\n----- Accountant Details -----")
+a1.show_accountant_details()
