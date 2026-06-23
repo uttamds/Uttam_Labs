@@ -29,6 +29,46 @@ route1.display_route()
 route2.display_route()
 route3.display_route()
 
+
+====================
+
+INHERITANCE
+==================
+
+class TravelRoute:
+    def __init__(self, source, destination, fare):
+        self.source = source
+        self.destination = destination
+        self.fare = fare
+
+    def show_route(self):
+        print("Route:", self.source, "to", self.destination)
+        print("Base Fare:", self.fare)
+
+
+class BusRoute(TravelRoute):
+    def __init__(self, source, destination, fare, bus_type):
+        super().__init__(source, destination, fare)   # calling parent constructor
+        self.bus_type = bus_type
+
+    def show_route(self):
+        total_fare = self.fare + 100   # extra service charge
+        print("Route:", self.source, "to", self.destination)
+        print("Bus Type:", self.bus_type)
+        print("Final Fare:", total_fare)
+
+
+# objects
+r1 = TravelRoute("Mumbai", "Pune", 800)
+r2 = BusRoute("Mumbai", "Goa", 2500, "AC Sleeper")
+
+print("Parent Class Object")
+r1.show_route()
+
+print("\nChild Class Object")
+r2.show_route()
+
+
 =========================
 polymorphism
 ============================
