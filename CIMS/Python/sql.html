@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Database Fundamentals with Python Connectivity</title>
+        <style>
+                * {
+                        box-sizing: border-box;
+                }
+
+                body {
+                        margin: 0;
+                        font-family: Arial, Helvetica, sans-serif;
+                        background: #f4f7fb;
+                        color: #1f2937;
+                        line-height: 1.6;
+                }
+
+                .container {
+                        width: 92%;
+                        max-width: 1250px;
+                        margin: auto;
+                        padding: 20px;
+                }
+
+                .hero {
+                        background: linear-gradient(135deg, #0f172a, #1d4ed8);
+                        color: #fff;
+                        padding: 32px;
+                        border-radius: 16px;
+                        margin-top: 20px;
+                        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                }
+
+                .hero h1 {
+                        margin: 0 0 10px;
+                        font-size: 40px;
+                }
+
+                .hero p {
+                        margin: 0;
+                        font-size: 20px;
+                        opacity: 0.95;
+                }
+
+                .tag {
+                        display: inline-block;
+                        background: #dbeafe;
+                        color: #1d4ed8;
+                        padding: 6px 12px;
+                        border-radius: 999px;
+                        font-size: 15px;
+                        margin-right: 8px;
+                        margin-top: 12px;
+                        font-weight: bold;
+                }
+
+                .section {
+                        background: #fff;
+                        margin-top: 22px;
+                        padding: 24px;
+                        border-radius: 14px;
+                        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+                }
+
+                .section h2 {
+                        margin-top: 0;
+                        color: #0f172a;
+                        border-left: 6px solid #2563eb;
+                        padding-left: 12px;
+                        font-size: 30px;
+                }
+
+                .section h3 {
+                        color: #1d4ed8;
+                        margin-top: 20px;
+                        margin-bottom: 8px;
+                        font-size: 23px;
+                }
+
+                p,
+                li {
+                        font-size: 18px;
+                }
+
+                ul {
+                        padding-left: 24px;
+                }
+
+                li {
+                        margin: 8px 0;
+                }
+
+                .card-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                        gap: 16px;
+                        margin-top: 15px;
+                }
+
+                .card {
+                        background: #eff6ff;
+                        border-left: 6px solid #2563eb;
+                        padding: 16px;
+                        border-radius: 12px;
+                        min-height: 140px;
+                }
+
+                .card h4 {
+                        margin: 0 0 8px;
+                        color: #1e3a8a;
+                        font-size: 22px;
+                }
+
+                .card p {
+                        margin: 0;
+                        font-size: 17px;
+                }
+
+                .code {
+                        background: #0f172a;
+                        color: #e5e7eb;
+                        padding: 18px;
+                        border-radius: 12px;
+                        overflow-x: auto;
+                        font-family: Consolas, monospace;
+                        font-size: 16px;
+                        margin-top: 12px;
+                        white-space: pre-wrap;
+                }
+
+                .highlight {
+                        background: #fff7ed;
+                        border-left: 6px solid #f97316;
+                        padding: 14px;
+                        border-radius: 10px;
+                        margin-top: 14px;
+                        font-size: 18px;
+                }
+
+                .practice {
+                        background: #ecfeff;
+                        border-left: 6px solid #0891b2;
+                        padding: 16px;
+                        border-radius: 12px;
+                        margin-top: 14px;
+                        font-size: 18px;
+                }
+
+                .session-banner {
+                        background: linear-gradient(135deg, #1e293b, #2563eb);
+                        color: white;
+                        padding: 18px 22px;
+                        border-radius: 14px;
+                        margin-top: 30px;
+                        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+                }
+
+                .session-banner h2 {
+                        margin: 0;
+                        font-size: 30px;
+                        border: none;
+                        padding-left: 0;
+                        color: white;
+                }
+
+                .session-banner p {
+                        margin: 8px 0 0;
+                        font-size: 18px;
+                        opacity: 0.95;
+                }
+
+                .time-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-top: 10px;
+                        font-size: 18px;
+                }
+
+                .time-table th,
+                .time-table td {
+                        border: 1px solid #d1d5db;
+                        padding: 12px;
+                        text-align: left;
+                        vertical-align: top;
+                }
+
+                .time-table th {
+                        background: #1d4ed8;
+                        color: white;
+                }
+
+                .two-col {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 18px;
+                }
+
+                .footer {
+                        text-align: center;
+                        padding: 25px;
+                        color: #475569;
+                        font-size: 17px;
+                }
+
+                .subtle {
+                        color: #475569;
+                        font-size: 17px;
+                }
+
+                @media (max-width: 900px) {
+                        .two-col {
+                                grid-template-columns: 1fr;
+                        }
+
+                        .hero h1 {
+                                font-size: 32px;
+                        }
+
+                        .section h2 {
+                                font-size: 26px;
+                        }
+                }
+        </style>
+</head>
+
+<body>
+        <div class="container">
+
+                <!-- HERO -->
+                <div class="hero">
+                        <h1>Database Fundamentals with Python Connectivity</h1>
+                        <p>Student Learning Page | Databases, SQL, CRUD, SQLite / MySQL and Python Connectivity</p>
+                        <div>
+                                <span class="tag">Databases</span>
+                                <span class="tag">SQL</span>
+                                <span class="tag">CRUD</span>
+                                <span class="tag">SQLite</span>
+                                <span class="tag">MySQL</span>
+                                <span class="tag">Python</span>
+                        </div>
+                </div>
+
+                <!-- INTRO -->
+                <div class="section">
+                        <h2>What You Will Learn</h2>
+                        <ul>
+                                <li>What a database is and why it is used in software applications</li>
+                                <li>The meaning of tables, rows, columns and primary keys</li>
+                                <li>Basic SQL commands like <code>CREATE</code>, <code>INSERT</code>,
+                                        <code>SELECT</code>, <code>UPDATE</code> and <code>DELETE</code></li>
+                                <li>How CRUD operations work in a real database</li>
+                                <li>Difference between <b>SQLite</b> and <b>MySQL</b></li>
+                                <li>How Python connects to a database and performs operations</li>
+                        </ul>
+                        <p class="subtle">
+                                This page is meant for students and beginners who are learning database concepts for the
+                                first time.
+                        </p>
+                </div>
+
+                <!-- SESSION 1 -->
+                <div class="session-banner">
+                        <h2>Topic 1 - Introduction to Databases</h2>
+                        <p>Understand what a database is and why almost every application needs one</p>
+                </div>
+
+                <div class="section">
+                        <h2>What is a Database?</h2>
+                        <p>
+                                A <b>database</b> is an organized collection of data stored in a structured way so that
+                                it can be
+                                easily inserted, searched, updated and deleted.
+                        </p>
+
+                        <div class="card-grid">
+                                <div class="card">
+                                        <h4>Why use a database?</h4>
+                                        <p>To store application data permanently instead of losing it when the program
+                                                closes.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Where is it used?</h4>
+                                        <p>Banking apps, e-commerce websites, hospital systems, school portals, payroll
+                                                systems and many more.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>What can it store?</h4>
+                                        <p>Customer records, product details, employee data, marks, transactions, login
+                                                details and more.</p>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Important Database Terms</h2>
+                        <div class="card-grid">
+                                <div class="card">
+                                        <h4>Table</h4>
+                                        <p>A table stores data in rows and columns. Example: Student table, Employee
+                                                table.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Row / Record</h4>
+                                        <p>One complete entry in a table. Example: one student’s data.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Column / Field</h4>
+                                        <p>A property or attribute of data. Example: name, age, salary, marks.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Primary Key</h4>
+                                        <p>A unique column used to identify each row in a table.</p>
+                                </div>
+                        </div>
+
+                        <h3>Example Table: Student</h3>
+                        <table class="time-table">
+                                <tr>
+                                        <th>student_id</th>
+                                        <th>name</th>
+                                        <th>course</th>
+                                        <th>marks</th>
+                                </tr>
+                                <tr>
+                                        <td>101</td>
+                                        <td>Aarav</td>
+                                        <td>Python</td>
+                                        <td>82</td>
+                                </tr>
+                                <tr>
+                                        <td>102</td>
+                                        <td>Diya</td>
+                                        <td>SQL</td>
+                                        <td>88</td>
+                                </tr>
+                                <tr>
+                                        <td>103</td>
+                                        <td>Rohan</td>
+                                        <td>Java</td>
+                                        <td>79</td>
+                                </tr>
+                        </table>
+
+                        <div class="highlight">
+                                <b>Observation:</b> In the table above, <code>student_id</code> can act as the
+                                <b>Primary Key</b> because it uniquely identifies each student.
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Database in Real Life Applications</h2>
+                        <ul>
+                                <li><b>Online Shopping:</b> products, orders, payments, customers</li>
+                                <li><b>College Management:</b> students, faculty, attendance, marks</li>
+                                <li><b>Banking:</b> accounts, transactions, balance details</li>
+                                <li><b>Hospital System:</b> patients, doctors, appointments, bills</li>
+                                <li><b>HR / Payroll:</b> employees, salary, leaves, departments</li>
+                        </ul>
+                </div>
+
+                <!-- SESSION 2 -->
+                <div class="session-banner">
+                        <h2>Topic 2 - SQL Basics</h2>
+                        <p>SQL is the language used to work with relational databases</p>
+                </div>
+
+                <div class="section">
+                        <h2>What is SQL?</h2>
+                        <p>
+                                <b>SQL</b> stands for <b>Structured Query Language</b>. It is used to create tables,
+                                insert data,
+                                retrieve data, update data and delete data from a relational database.
+                        </p>
+
+                        <div class="card-grid">
+                                <div class="card">
+                                        <h4>Create</h4>
+                                        <p>Used to create database objects like tables.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Insert</h4>
+                                        <p>Used to add new records into a table.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Select</h4>
+                                        <p>Used to fetch or display data from a table.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Update / Delete</h4>
+                                        <p>Used to modify existing records or remove records.</p>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Basic SQL Commands</h2>
+
+                        <h3>1) CREATE TABLE</h3>
+                        <div class="code">
+                                CREATE TABLE student (
+                                student_id INTEGER PRIMARY KEY,
+                                name TEXT,
+                                course TEXT,
+                                marks INTEGER
+                                );
+                        </div>
+
+                        <h3>2) INSERT INTO</h3>
+                        <div class="code">
+                                INSERT INTO student (student_id, name, course, marks)
+                                VALUES (101, 'Aarav', 'Python', 82);
+                        </div>
+
+                        <h3>3) SELECT</h3>
+                        <div class="code">
+                                SELECT * FROM student;
+                        </div>
+
+                        <h3>4) UPDATE</h3>
+                        <div class="code">
+                                UPDATE student
+                                SET marks = 90
+                                WHERE student_id = 101;
+                        </div>
+
+                        <h3>5) DELETE</h3>
+                        <div class="code">
+                                DELETE FROM student
+                                WHERE student_id = 101;
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Important SQL Keywords to Remember</h2>
+                        <div class="card-grid">
+                                <div class="card">
+                                        <h4>SELECT</h4>
+                                        <p>Reads data from a table.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>FROM</h4>
+                                        <p>Specifies the table from which data must be read.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>WHERE</h4>
+                                        <p>Applies a condition while selecting, updating or deleting data.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>ORDER BY</h4>
+                                        <p>Sorts the result in ascending or descending order.</p>
+                                </div>
+                        </div>
+
+                        <h3>Examples</h3>
+                        <div class="code">
+                                SELECT name, marks FROM student;
+
+                                SELECT * FROM student
+                                WHERE marks > 80;
+
+                                SELECT * FROM student
+                                ORDER BY marks DESC;
+                        </div>
+                </div>
+
+                <!-- SESSION 3 -->
+                <div class="session-banner">
+                        <h2>Topic 3 - CRUD Operations</h2>
+                        <p>CRUD is the foundation of almost every database application</p>
+                </div>
+
+                <div class="section">
+                        <h2>What is CRUD?</h2>
+                        <p>
+                                <b>CRUD</b> stands for:
+                        </p>
+                        <ul>
+                                <li><b>C - Create</b> → add new data</li>
+                                <li><b>R - Read</b> → fetch or view data</li>
+                                <li><b>U - Update</b> → modify existing data</li>
+                                <li><b>D - Delete</b> → remove data</li>
+                        </ul>
+
+                        <table class="time-table">
+                                <tr>
+                                        <th>CRUD Operation</th>
+                                        <th>Meaning</th>
+                                        <th>SQL Command</th>
+                                </tr>
+                                <tr>
+                                        <td>Create</td>
+                                        <td>Add a new record</td>
+                                        <td><code>INSERT</code></td>
+                                </tr>
+                                <tr>
+                                        <td>Read</td>
+                                        <td>Fetch data</td>
+                                        <td><code>SELECT</code></td>
+                                </tr>
+                                <tr>
+                                        <td>Update</td>
+                                        <td>Change existing data</td>
+                                        <td><code>UPDATE</code></td>
+                                </tr>
+                                <tr>
+                                        <td>Delete</td>
+                                        <td>Remove data</td>
+                                        <td><code>DELETE</code></td>
+                                </tr>
+                        </table>
+                </div>
+
+                <div class="section">
+                        <h2>CRUD Example on Student Table</h2>
+
+                        <h3>Create</h3>
+                        <div class="code">
+                                INSERT INTO student VALUES (104, 'Meera', 'MySQL', 85);
+                        </div>
+
+                        <h3>Read</h3>
+                        <div class="code">
+                                SELECT * FROM student;
+                        </div>
+
+                        <h3>Update</h3>
+                        <div class="code">
+                                UPDATE student
+                                SET course = 'Database'
+                                WHERE student_id = 104;
+                        </div>
+
+                        <h3>Delete</h3>
+                        <div class="code">
+                                DELETE FROM student
+                                WHERE student_id = 104;
+                        </div>
+                </div>
+
+                <!-- SESSION 4 -->
+                <div class="session-banner">
+                        <h2>Topic 4 - SQLite and MySQL</h2>
+                        <p>Understand the difference between a lightweight database and a database server</p>
+                </div>
+
+                <div class="section">
+                        <h2>What is SQLite?</h2>
+                        <p>
+                                <b>SQLite</b> is a lightweight, file-based relational database. It stores the entire
+                                database in a single file.
+                                It is very useful for beginners, local applications, mini projects and testing.
+                        </p>
+
+                        <div class="card-grid">
+                                <div class="card">
+                                        <h4>File-based</h4>
+                                        <p>No separate server is required. Database is stored in a file like
+                                                <code>college.db</code>.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Simple to use</h4>
+                                        <p>Good for student practice, Python mini projects and small applications.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Built into Python</h4>
+                                        <p>Python has the <code>sqlite3</code> module, so no extra installation is
+                                                needed in many cases.</p>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>What is MySQL?</h2>
+                        <p>
+                                <b>MySQL</b> is a popular relational database management system used in real-world web
+                                applications and enterprise systems.
+                                It works as a database server and can store large amounts of data.
+                        </p>
+
+                        <div class="card-grid">
+                                <div class="card">
+                                        <h4>Server-based</h4>
+                                        <p>MySQL runs as a database server and multiple users can connect to it.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Industry usage</h4>
+                                        <p>Commonly used in websites, business systems, dashboards and backend
+                                                applications.</p>
+                                </div>
+                                <div class="card">
+                                        <h4>Scalable</h4>
+                                        <p>Suitable for larger applications than SQLite.</p>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>SQLite vs MySQL</h2>
+                        <table class="time-table">
+                                <tr>
+                                        <th>Feature</th>
+                                        <th>SQLite</th>
+                                        <th>MySQL</th>
+                                </tr>
+                                <tr>
+                                        <td>Type</td>
+                                        <td>File-based database</td>
+                                        <td>Server-based database</td>
+                                </tr>
+                                <tr>
+                                        <td>Installation</td>
+                                        <td>Very simple / often built into Python workflow</td>
+                                        <td>Needs MySQL server installation</td>
+                                </tr>
+                                <tr>
+                                        <td>Best for</td>
+                                        <td>Learning, small projects, local apps</td>
+                                        <td>Real-world applications, multi-user systems</td>
+                                </tr>
+                                <tr>
+                                        <td>Performance for large apps</td>
+                                        <td>Limited compared to MySQL</td>
+                                        <td>Better suited for larger systems</td>
+                                </tr>
+                        </table>
+                </div>
+
+                <!-- SESSION 5 -->
+                <div class="session-banner">
+                        <h2>Topic 5 - Connectivity using Python</h2>
+                        <p>Learn how Python programs connect to databases and perform CRUD operations</p>
+                </div>
+
+                <div class="section">
+                        <h2>Python + Database Workflow</h2>
+                        <p>In Python, database operations usually follow this sequence:</p>
+
+                        <ol style="font-size:18px; padding-left: 24px;">
+                                <li>Import the database module</li>
+                                <li>Create a connection</li>
+                                <li>Create a cursor object</li>
+                                <li>Execute SQL statements</li>
+                                <li>Commit changes if needed</li>
+                                <li>Fetch data if required</li>
+                                <li>Close the connection</li>
+                        </ol>
+
+                        <div class="highlight">
+                                <b>Key idea:</b> Python acts like the application layer, while the database stores the
+                                data permanently.
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Python Connectivity with SQLite</h2>
+                        <p>
+                                SQLite is the easiest database to start with in Python because Python provides the
+                                <code>sqlite3</code> module.
+                        </p>
+
+                        <h3>Step 1: Create Connection</h3>
+                        <div class="code">
+                                import sqlite3
+
+                                con = sqlite3.connect("college.db")
+                                cur = con.cursor()
+                        </div>
+
+                        <h3>Step 2: Create Table</h3>
+                        <div class="code">
+                                cur.execute("""
+                                CREATE TABLE IF NOT EXISTS student (
+                                student_id INTEGER PRIMARY KEY,
+                                name TEXT,
+                                course TEXT,
+                                marks INTEGER
+                                )
+                                """)
+                                con.commit()
+                        </div>
+
+                        <h3>Step 3: Insert Data</h3>
+                        <div class="code">
+                                cur.execute("INSERT INTO student VALUES (101, 'Aarav', 'Python', 82)")
+                                con.commit()
+                        </div>
+
+                        <h3>Step 4: Read Data</h3>
+                        <div class="code">
+                                cur.execute("SELECT * FROM student")
+                                rows = cur.fetchall()
+
+                                for row in rows:
+                                print(row)
+                        </div>
+
+                        <h3>Step 5: Close Connection</h3>
+                        <div class="code">
+                                con.close()
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Complete SQLite Example in Python</h2>
+                        <div class="code">
+                                import sqlite3
+
+                                # 1. connect to database
+                                con = sqlite3.connect("college.db")
+                                cur = con.cursor()
+
+                                # 2. create table
+                                cur.execute("""
+                                CREATE TABLE IF NOT EXISTS student (
+                                student_id INTEGER PRIMARY KEY,
+                                name TEXT,
+                                course TEXT,
+                                marks INTEGER
+                                )
+                                """)
+
+                                # 3. insert record
+                                cur.execute("INSERT INTO student VALUES (101, 'Aarav', 'Python', 82)")
+
+                                # 4. commit changes
+                                con.commit()
+
+                                # 5. fetch records
+                                cur.execute("SELECT * FROM student")
+                                rows = cur.fetchall()
+
+                                print("Student Records:")
+                                for row in rows:
+                                print(row)
+
+                                # 6. close connection
+                                con.close()
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>Python Connectivity with MySQL</h2>
+                        <p>
+                                To connect Python with MySQL, we typically use a connector package such as
+                                <code>mysql-connector-python</code>.
+                        </p>
+
+                        <h3>Install the connector</h3>
+                        <div class="code">
+                                pip install mysql-connector-python
+                        </div>
+
+                        <h3>Sample MySQL Connection in Python</h3>
+                        <div class="code">
+                                import mysql.connector
+
+                                con = mysql.connector.connect(
+                                host="localhost",
+                                user="root",
+                                password="your_password",
+                                database="college_db"
+                                )
+
+                                cur = con.cursor()
+
+                                cur.execute("SELECT * FROM student")
+                                rows = cur.fetchall()
+
+                                for row in rows:
+                                print(row)
+
+                                con.close()
+                        </div>
+
+                        <div class="highlight">
+                                In MySQL, the database should already exist, and the MySQL server must be running before
+                                Python connects to it.
+                        </div>
+                </div>
+
+                <div class="section">
+                        <h2>CRUD using Python + SQLite</h2>
+
+                        <h3>Create / Insert</h3>
+                        <div class="code">
+                                cur.execute("INSERT INTO student VALUES (102, 'Diya', 'SQL', 88)")
+                                con.commit()
+                        </div>
+
+                        <h3>Read / Select</h3>
+                        <div class="code">
+                                cur.execute("SELECT * FROM student")
+                                rows = cur.fetchall()
+                                print(rows)
+                        </div>
+
+                        <h3>Update</h3>
+                        <div class="code">
+                                cur.execute("UPDATE student SET marks = 91 WHERE student_id = 102")
+                                con.commit()
+                        </div>
+
+                        <h3>Delete</h3>
+                        <div class="code">
+                                cur.execute("DELETE FROM student WHERE student_id = 102")
+                                con.commit()
+                        </div>
+                </div>
+
+                <!-- MINI PROJECT -->
+                <div class="session-banner">
+                        <h2>Mini Project Idea</h2>
+                        <p>Student Database Management using Python + SQLite</p>
+                </div>
+
+                <div class="section">
+                        <h2>Mini Project: Student Database App</h2>
+                        <p>Students can build a small console-based application with the following features:</p>
+
+                        <ul>
+                                <li>Add a student record</li>
+                                <li>View all student records</li>
+                                <li>Update marks or course</li>
+                                <li>Delete a student record</li>
+                        </ul>
+
+                        <div class="practice">
+                                <b>Suggested Table:</b>
+                                <ul>
+                                        <li><code>student_id</code></li>
+                                        <li><code>name</code></li>
+                                        <li><code>course</code></li>
+                                        <li><code>marks</code></li>
+                                </ul>
+                        </div>
+                </div>
+
+                <!-- SUMMARY -->
+                <div class="section">
+                        <h2>Quick Summary</h2>
+                        <div class="two-col">
+                                <div>
+                                        <h3>Database Concepts</h3>
+                                        <ul>
+                                                <li>Database stores structured data</li>
+                                                <li>Table contains rows and columns</li>
+                                                <li>Primary key uniquely identifies a row</li>
+                                                <li>SQL is used to manage relational data</li>
+                                        </ul>
+                                </div>
+                                <div>
+                                        <h3>Python + Database</h3>
+                                        <ul>
+                                                <li>Python can connect to SQLite and MySQL</li>
+                                                <li><code>sqlite3</code> is used for SQLite</li>
+                                                <li>Cursor executes SQL statements</li>
+                                                <li><code>commit()</code> saves changes</li>
+                                        </ul>
+                                </div>
+                        </div>
+                </div>
+
+                <!-- PRACTICE -->
+                <div class="section">
+                        <h2>Student Practice Tasks</h2>
+                        <div class="practice">
+                                <b>Practice 1:</b> Create a <code>book</code> table with columns:
+                                <code>book_id</code>, <code>title</code>, <code>author</code>, <code>price</code>.
+                        </div>
+
+                        <div class="practice">
+                                <b>Practice 2:</b> Insert 3 book records and display them using Python + SQLite.
+                        </div>
+
+                        <div class="practice">
+                                <b>Practice 3:</b> Update the price of one book and delete one record.
+                        </div>
+
+                        <div class="practice">
+                                <b>Practice 4:</b> Create an <code>employee</code> table and perform all 4 CRUD
+                                operations from Python.
+                        </div>
+                </div>
+
+                <!-- CHEAT SHEET -->
+                <div class="section">
+                        <h2>Cheat Sheet</h2>
+
+                        <h3>SQL Commands</h3>
+                        <div class="code">
+                                CREATE TABLE table_name (...);
+                                INSERT INTO table_name VALUES (...);
+                                SELECT * FROM table_name;
+                                UPDATE table_name SET column = value WHERE condition;
+                                DELETE FROM table_name WHERE condition;
+                        </div>
+
+                        <h3>Python SQLite Steps</h3>
+                        <div class="code">
+                                import sqlite3
+                                con = sqlite3.connect("sample.db")
+                                cur = con.cursor()
+                                cur.execute("SQL QUERY")
+                                con.commit()
+                                con.close()
+                        </div>
+                </div>
+
+                <div class="footer">
+                        Database Fundamentals • SQL • CRUD • SQLite / MySQL • Python Connectivity
+                </div>
+
+        </div>
+</body>
+
+</html>
