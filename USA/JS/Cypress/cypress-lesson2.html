@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cypress Training - Session 2 and Session 3</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1250px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a, #1d4ed8);
+            color: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 40px;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 15px;
+            margin-right: 8px;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        .section {
+            background: #fff;
+            margin-top: 22px;
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #0f172a;
+            border-left: 6px solid #2563eb;
+            padding-left: 12px;
+            font-size: 30px;
+        }
+
+        .section h3 {
+            color: #1d4ed8;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-size: 23px;
+        }
+
+        p,
+        li {
+            font-size: 18px;
+        }
+
+        ul {
+            padding-left: 24px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .time-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .time-table th,
+        .time-table td {
+            border: 1px solid #d1d5db;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .time-table th {
+            background: #1d4ed8;
+            color: white;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 15px;
+        }
+
+        .card {
+            background: #eff6ff;
+            border-left: 6px solid #2563eb;
+            padding: 16px;
+            border-radius: 12px;
+            min-height: 140px;
+        }
+
+        .card h4 {
+            margin: 0 0 8px;
+            color: #1e3a8a;
+            font-size: 22px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .code {
+            background: #0f172a;
+            color: #e5e7eb;
+            padding: 18px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+            font-size: 16px;
+            margin-top: 12px;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            background: #fff7ed;
+            border-left: 6px solid #f97316;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 14px;
+            font-size: 18px;
+        }
+
+        .practice {
+            background: #ecfeff;
+            border-left: 6px solid #0891b2;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 14px;
+            font-size: 18px;
+        }
+
+        .session-banner {
+            background: linear-gradient(135deg, #1e293b, #2563eb);
+            color: white;
+            padding: 18px 22px;
+            border-radius: 14px;
+            margin-top: 30px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        }
+
+        .session-banner h2 {
+            margin: 0;
+            font-size: 30px;
+            border: none;
+            padding-left: 0;
+            color: white;
+        }
+
+        .session-banner p {
+            margin: 8px 0 0;
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .subtle {
+            color: #475569;
+            font-size: 17px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .section h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="hero">
+            <h1>Cypress Training Presentation</h1>
+            <p>Session 2 + Session 3 | Beginner-Friendly Classroom Material</p>
+            <div>
+                <span class="tag">Cypress</span>
+                <span class="tag">Hands-on</span>
+                <span class="tag">1 Hour per Session</span>
+                <span class="tag">UI Testing Basics</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Training Flow Covered in This Page</h2>
+            <ul>
+                <li><b>Session 2:</b> Test Structure, Basic Commands and Assertions</li>
+                <li><b>Session 3:</b> Selectors, Buttons, Checkboxes, Radio Buttons, Dropdowns and
+                    <code>beforeEach()</code></li>
+            </ul>
+            <p class="subtle">
+                This page is designed as a classroom presentation page that you can scroll and teach directly from the
+                browser.
+            </p>
+        </div>
+
+        <!-- SESSION 2 -->
+        <div class="session-banner">
+            <h2>Session 2 - Test Structure, Commands and Assertions</h2>
+            <p>Goal: Move students from “running Cypress” to “writing useful tests”</p>
+        </div>
+
+        <div class="section">
+            <h2>Session 2 - 1 Hour Plan</h2>
+            <table class="time-table">
+                <tr>
+                    <th style="width:18%;">Time</th>
+                    <th>Topic</th>
+                    <th>What to Cover</th>
+                </tr>
+                <tr>
+                    <td><b>5 min</b></td>
+                    <td>Quick Recap</td>
+                    <td>What Cypress is, where tests are written, how the first test was run, and meaning of
+                        <code>describe()</code> and <code>it()</code>.</td>
+                </tr>
+                <tr>
+                    <td><b>10 min</b></td>
+                    <td>Test Structure</td>
+                    <td>Understand <code>describe()</code>, <code>it()</code>, and the <code>cy</code> object.</td>
+                </tr>
+                <tr>
+                    <td><b>20 min</b></td>
+                    <td>Core Commands</td>
+                    <td>Learn <code>cy.visit()</code>, <code>cy.get()</code>, <code>cy.contains()</code>,
+                        <code>cy.type()</code>, <code>cy.click()</code> and <code>cy.clear()</code>.</td>
+                </tr>
+                <tr>
+                    <td><b>15 min</b></td>
+                    <td>Assertions</td>
+                    <td>Use <code>.should()</code> with <code>be.visible</code>, <code>exist</code>,
+                        <code>contain</code>, <code>have.value</code>.</td>
+                </tr>
+                <tr>
+                    <td><b>10 min</b></td>
+                    <td>Mini Practice</td>
+                    <td>Write a test that opens a page, types a value, clears it, types again and verifies the result.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Concept 1 - Cypress Test Structure</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>describe()</h4>
+                    <p>Used to group related test cases into one test suite.</p>
+                </div>
+                <div class="card">
+                    <h4>it()</h4>
+                    <p>Represents a single test case or scenario.</p>
+                </div>
+                <div class="card">
+                    <h4>cy</h4>
+                    <p>The Cypress object used to perform actions like visit, click, type and verify.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                describe('Login Page Tests', () => {
+                it('should open the login page', () => {
+                cy.visit('https://example.cypress.io')
+                })
+                })
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 2 - Core Commands</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>cy.visit(url)</h4>
+                    <p>Opens a page or application.</p>
+                </div>
+                <div class="card">
+                    <h4>cy.get(selector)</h4>
+                    <p>Selects an element using a CSS selector.</p>
+                </div>
+                <div class="card">
+                    <h4>cy.contains(text)</h4>
+                    <p>Finds an element using visible text.</p>
+                </div>
+                <div class="card">
+                    <h4>cy.type()</h4>
+                    <p>Types into a textbox or textarea.</p>
+                </div>
+                <div class="card">
+                    <h4>cy.click()</h4>
+                    <p>Clicks a button, link or other clickable element.</p>
+                </div>
+                <div class="card">
+                    <h4>cy.clear()</h4>
+                    <p>Clears an input field before entering a new value.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                cy.visit('https://example.cypress.io/commands/actions')
+
+                cy.get('.action-email')
+                .type('student@test.com')
+
+                cy.get('.action-email')
+                .clear()
+                .type('cypress@test.com')
+
+                cy.contains('Submit').click()
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 3 - Assertions</h2>
+            <p>Assertions help us verify that the application behaves as expected.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>be.visible</h4>
+                    <p>Checks whether an element is visible on the page.</p>
+                </div>
+                <div class="card">
+                    <h4>exist</h4>
+                    <p>Checks whether the element exists in the DOM.</p>
+                </div>
+                <div class="card">
+                    <h4>contain</h4>
+                    <p>Checks whether an element contains some text.</p>
+                </div>
+                <div class="card">
+                    <h4>have.value</h4>
+                    <p>Checks the current value inside an input field.</p>
+                </div>
+            </div>
+
+            <h3>Assertion Examples</h3>
+            <div class="code">
+                cy.get('.action-email').should('be.visible')
+                cy.get('.action-email').should('have.value', 'cypress@test.com')
+                cy.contains('Email').should('exist')
+                cy.get('button').should('contain', 'Submit')
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Session 2 - Full Demo Test</h2>
+            <div class="code">
+                describe('Cypress Session 2 Demo', () => {
+                it('should type into a textbox and verify the value', () => {
+                cy.visit('https://example.cypress.io/commands/actions')
+
+                cy.get('.action-email')
+                .type('student@test.com')
+                .should('have.value', 'student@test.com')
+
+                cy.get('.action-email')
+                .clear()
+                .type('hello@cypress.com')
+                .should('have.value', 'hello@cypress.com')
+                })
+                })
+            </div>
+
+            <div class="practice">
+                <b>Practice Task:</b>
+                <ul>
+                    <li>Open the Cypress actions page</li>
+                    <li>Type an email into the textbox</li>
+                    <li>Clear it and enter another email</li>
+                    <li>Verify the final value using <code>should('have.value')</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Session 2 - Outcome</h2>
+            <ul>
+                <li>Students understand the structure of a Cypress test file.</li>
+                <li>Students can use <code>visit()</code>, <code>get()</code>, <code>contains()</code>,
+                    <code>type()</code>, <code>clear()</code> and <code>click()</code>.</li>
+                <li>Students can write simple assertions using <code>.should()</code>.</li>
+            </ul>
+        </div>
+
+        <!-- SESSION 3 -->
+        <div class="session-banner">
+            <h2>Session 3 - Selectors, Form Controls and beforeEach()</h2>
+            <p>Goal: Help students interact with real UI elements like buttons, checkboxes, radios and dropdowns</p>
+        </div>
+
+        <div class="section">
+            <h2>Session 3 - 1 Hour Plan</h2>
+            <table class="time-table">
+                <tr>
+                    <th style="width:18%;">Time</th>
+                    <th>Topic</th>
+                    <th>What to Cover</th>
+                </tr>
+                <tr>
+                    <td><b>5 min</b></td>
+                    <td>Quick Recap</td>
+                    <td>Recap <code>visit()</code>, <code>get()</code>, <code>type()</code>, <code>click()</code> and
+                        assertions.</td>
+                </tr>
+                <tr>
+                    <td><b>10 min</b></td>
+                    <td>Selectors</td>
+                    <td>Explain ID selector, class selector, tag selector, attribute selector and why good selectors
+                        matter in automation.</td>
+                </tr>
+                <tr>
+                    <td><b>20 min</b></td>
+                    <td>Form Controls</td>
+                    <td>Work with buttons, checkboxes, radio buttons and dropdowns using Cypress commands.</td>
+                </tr>
+                <tr>
+                    <td><b>10 min</b></td>
+                    <td>beforeEach()</td>
+                    <td>Show how repeated setup steps can be written once and reused before every test case.</td>
+                </tr>
+                <tr>
+                    <td><b>15 min</b></td>
+                    <td>Hands-on Test</td>
+                    <td>Create a small test suite that visits a page, interacts with controls and validates outcomes.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Concept 1 - Understanding Selectors</h2>
+            <p>
+                Cypress usually finds elements using <code>cy.get()</code>.
+                To use <code>cy.get()</code> properly, students must understand selectors.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>ID Selector</h4>
+                    <p><code>#email</code> selects an element whose id is <b>email</b>.</p>
+                </div>
+                <div class="card">
+                    <h4>Class Selector</h4>
+                    <p><code>.btn-primary</code> selects elements with that CSS class.</p>
+                </div>
+                <div class="card">
+                    <h4>Tag Selector</h4>
+                    <p><code>button</code> selects all button elements.</p>
+                </div>
+                <div class="card">
+                    <h4>Attribute Selector</h4>
+                    <p><code>[type="checkbox"]</code> or <code>[name="gender"]</code> selects based on attributes.</p>
+                </div>
+            </div>
+
+            <h3>Examples of Selectors</h3>
+            <div class="code">
+                cy.get('#email')
+                cy.get('.login-btn')
+                cy.get('button')
+                cy.get('[type="checkbox"]')
+                cy.get('[name="gender"]')
+                cy.get('select')
+            </div>
+
+            <div class="highlight">
+                <b>Teaching point:</b> explain that selectors are how Cypress identifies elements on the page.
+                A test becomes easier to maintain when selectors are clear and stable.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 2 - Working with Buttons</h2>
+            <p>Buttons are the most common clickable elements in UI testing.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Click a button</h4>
+                    <p>Use <code>.click()</code> to press a button.</p>
+                </div>
+                <div class="card">
+                    <h4>Find by text</h4>
+                    <p>Use <code>cy.contains('Submit')</code> if the button text is visible.</p>
+                </div>
+                <div class="card">
+                    <h4>Verify button text</h4>
+                    <p>Use <code>.should('contain', 'Submit')</code>.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                cy.contains('Submit').click()
+                cy.get('button').should('contain', 'Submit')
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 3 - Working with Checkboxes</h2>
+            <p>Checkboxes are used when the user can select one or more options.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>.check()</h4>
+                    <p>Selects a checkbox.</p>
+                </div>
+                <div class="card">
+                    <h4>.uncheck()</h4>
+                    <p>Removes the selection from a checkbox.</p>
+                </div>
+                <div class="card">
+                    <h4>be.checked</h4>
+                    <p>Assertion to verify that the checkbox is selected.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                cy.get('[type="checkbox"]').first().check().should('be.checked')
+                cy.get('[type="checkbox"]').first().uncheck().should('not.be.checked')
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 4 - Working with Radio Buttons</h2>
+            <p>Radio buttons allow the user to select only one option from a group.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Select a radio option</h4>
+                    <p>Use <code>.check()</code> on the specific radio input.</p>
+                </div>
+                <div class="card">
+                    <h4>Verify selection</h4>
+                    <p>Use <code>.should('be.checked')</code>.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                cy.get('[type="radio"]').first().check().should('be.checked')
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 5 - Working with Dropdowns</h2>
+            <p>Dropdowns are usually tested using the <code>.select()</code> command.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>.select()</h4>
+                    <p>Selects an option from a dropdown.</p>
+                </div>
+                <div class="card">
+                    <h4>Verify value</h4>
+                    <p>Use <code>.should('have.value', '...')</code> to confirm the selected option.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                cy.get('select').select('apples')
+                cy.get('select').should('have.value', '456')
+            </div>
+
+            <div class="highlight">
+                The value used in <code>have.value</code> depends on the actual HTML option value in the page.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Concept 6 - beforeEach()</h2>
+            <p>
+                In many test suites, every test needs the same starting step such as opening the same page.
+                Instead of repeating that code inside every <code>it()</code>, Cypress provides
+                <code>beforeEach()</code>.
+            </p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Why use it?</h4>
+                    <p>It avoids repetition and keeps the test file cleaner.</p>
+                </div>
+                <div class="card">
+                    <h4>When does it run?</h4>
+                    <p>It runs before every test case inside the current test suite.</p>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <div class="code">
+                describe('Form Control Tests', () => {
+
+                beforeEach(() => {
+                cy.visit('https://example.cypress.io/commands/actions')
+                })
+
+                it('should type into textbox', () => {
+                cy.get('.action-email')
+                .type('student@test.com')
+                .should('have.value', 'student@test.com')
+                })
+
+                it('should click a button', () => {
+                cy.contains('Submit').click()
+                })
+                })
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Session 3 - Full Demo Test Suite</h2>
+            <p>
+                This demo combines selectors, form controls and <code>beforeEach()</code>.
+            </p>
+
+            <div class="code">
+                describe('Cypress Session 3 Demo', () => {
+
+                beforeEach(() => {
+                cy.visit('https://example.cypress.io/commands/actions')
+                })
+
+                it('should type in textbox and verify value', () => {
+                cy.get('.action-email')
+                .type('trainer@test.com')
+                .should('have.value', 'trainer@test.com')
+                })
+
+                it('should check and uncheck a checkbox', () => {
+                cy.get('.action-checkboxes [type="checkbox"]')
+                .first()
+                .check()
+                .should('be.checked')
+
+                cy.get('.action-checkboxes [type="checkbox"]')
+                .first()
+                .uncheck()
+                .should('not.be.checked')
+                })
+
+                it('should select a radio button', () => {
+                cy.get('.action-radios [type="radio"]')
+                .first()
+                .check()
+                .should('be.checked')
+                })
+
+                it('should select a value from dropdown', () => {
+                cy.get('.action-select')
+                .select('apples')
+                })
+                })
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Session 3 - Suggested Classroom Flow</h2>
+            <table class="time-table">
+                <tr>
+                    <th style="width:30%;">Trainer Action</th>
+                    <th>What to Demonstrate</th>
+                </tr>
+                <tr>
+                    <td>Open Cypress example actions page</td>
+                    <td>Show the textbox, buttons, checkbox area, radio area and dropdown.</td>
+                </tr>
+                <tr>
+                    <td>Inspect selectors</td>
+                    <td>Explain how to identify class, id and input type in browser DevTools.</td>
+                </tr>
+                <tr>
+                    <td>Write checkbox test live</td>
+                    <td>Use <code>.check()</code>, <code>.uncheck()</code> and <code>should('be.checked')</code>.</td>
+                </tr>
+                <tr>
+                    <td>Write radio test live</td>
+                    <td>Use <code>.check()</code> on a radio button.</td>
+                </tr>
+                <tr>
+                    <td>Write dropdown test live</td>
+                    <td>Use <code>.select()</code> and explain that option text and option value can differ.</td>
+                </tr>
+                <tr>
+                    <td>Refactor with beforeEach()</td>
+                    <td>Move repeated <code>cy.visit()</code> into <code>beforeEach()</code>.</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Session 3 - Student Practice Task</h2>
+            <div class="practice">
+                <b>Practice Exercise:</b>
+                <ul>
+                    <li>Create a new Cypress test file for Session 3.</li>
+                    <li>Use <code>beforeEach()</code> to open the Cypress actions page before every test.</li>
+                    <li>Write one test for a textbox.</li>
+                    <li>Write one test for a checkbox.</li>
+                    <li>Write one test for a radio button.</li>
+                    <li>Write one test for a dropdown.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Session 3 - Expected Learning Outcome</h2>
+            <ul>
+                <li>Students understand the role of CSS selectors in Cypress automation.</li>
+                <li>Students can automate buttons, checkboxes, radio buttons and dropdowns.</li>
+                <li>Students can write assertions for checked state and selected values.</li>
+                <li>Students understand why <code>beforeEach()</code> is useful in test automation.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Cheat Sheet - Commands Learned So Far</h2>
+            <div class="two-col">
+                <div>
+                    <h3>Session 2 Commands</h3>
+                    <ul>
+                        <li><code>cy.visit()</code></li>
+                        <li><code>cy.get()</code></li>
+                        <li><code>cy.contains()</code></li>
+                        <li><code>.type()</code></li>
+                        <li><code>.clear()</code></li>
+                        <li><code>.click()</code></li>
+                        <li><code>.should()</code></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Session 3 Commands</h3>
+                    <ul>
+                        <li><code>.check()</code></li>
+                        <li><code>.uncheck()</code></li>
+                        <li><code>.select()</code></li>
+                        <li><code>beforeEach()</code></li>
+                        <li>Selectors: <code>#id</code>, <code>.class</code>, <code>tag</code>,
+                            <code>[attribute=value]</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>What Should Session 4 Cover?</h2>
+            <p>After Session 3, the next best progression is:</p>
+            <ul>
+                <li><b>Assertions in more depth</b> – text, visibility, disabled/enabled, length, class checks</li>
+                <li><b>Navigation and links</b> – clicking links and verifying URL</li>
+                <li><b>Working with input flows</b> – realistic form testing</li>
+                <li><b>Hooks recap</b> – before, beforeEach, afterEach (light intro)</li>
+                <li><b>A small end-to-end student form test</b></li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            Cypress Beginner Training • Session 2 + Session 3 • Test Structure, Commands, Assertions, Selectors and Form
+            Controls
+        </div>
+
+    </div>
+</body>
+
+</html>
