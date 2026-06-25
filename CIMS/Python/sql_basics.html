@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL Advanced Concepts - SP, Trigger, Cursor, Subquery, Views</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f7f9fc;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2 {
+            color: #0b4f8a;
+        }
+
+        .section {
+            background: #fff;
+            padding: 18px;
+            margin-bottom: 20px;
+            border-left: 6px solid #0b4f8a;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 12px;
+            overflow-x: auto;
+            border-radius: 6px;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            font-size: 14px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #bbb;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .note {
+            background: #fff8d6;
+            padding: 10px;
+            border-left: 5px solid #e0b100;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>SQL Advanced Concepts</h1>
+    <p>
+        This page gives a quick round-up of five important SQL concepts:
+        <b>Stored Procedures, Triggers, Cursors, Subqueries, and Views</b>.
+    </p>
+
+    <!-- Stored Procedure -->
+    <div class="section">
+        <h2>1) Stored Procedure (SP)</h2>
+        <p><b>Definition:</b> A Stored Procedure is a pre-written block of SQL statements stored in the database and
+            executed whenever needed.</p>
+
+        <p><b>Why use it?</b></p>
+        <ul>
+            <li>Reusability of SQL code</li>
+            <li>Improves maintainability</li>
+            <li>Can accept parameters</li>
+            <li>Used for insert, update, delete, select operations</li>
+        </ul>
+
+        <p><b>Example:</b> Stored Procedure to display all employees</p>
+        <pre><code>CREATE TABLE Employees (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50),
+    Salary INT
+);
+
+INSERT INTO Employees VALUES
+(1, 'Amit', 25000),
+(2, 'Neha', 40000),
+(3, 'Ravi', 30000);
+
+CREATE PROCEDURE GetAllEmployees
+AS
+BEGIN
+    SELECT * FROM Employees;
+END;
+
+EXEC GetAllEmployees;</code></pre>
+
+        <p><b>Procedure with Parameter:</b></p>
+        <pre><code>CREATE PROCEDURE GetEmployeeById
+    @id INT
+AS
+BEGIN
+    SELECT * FROM Employees
+    WHERE EmpID = @id;
+END;
+
+EXEC GetEmployeeById 2;</code></pre>
+
+        <div class="note">
+            <b>Exam line:</b> A Stored Procedure is a named collection of SQL statements stored in the database and
+            executed as a unit.
+        </div>
+    </div>
+
+    <!-- Trigger -->
+    <div class="section">
+        <h2>2) Trigger</h2>
+        <p><b>Definition:</b> A Trigger is a special SQL block that runs automatically when an event like <b>INSERT</b>,
+            <b>UPDATE</b>, or <b>DELETE</b> happens on a table.</p>
+
+        <p><b>Why use it?</b></p>
+        <ul>
+            <li>Automatic actions after data changes</li>
+            <li>Audit logging</li>
+            <li>Validation and business rules</li>
+        </ul>
+
+        <p><b>Example:</b> Trigger after inserting an employee</p>
+        <pre><code>CREATE TRIGGER trg_AfterInsertEmployee
+ON Employees
+AFTER INSERT
+AS
+BEGIN
+    PRINT 'New employee inserted successfully!';
+END;
+
+INSERT INTO Employees VALUES (4, 'Sneha', 50000);</code></pre>
+
+        <p><b>Using inserted table:</b></p>
+        <pre><code>CREATE TRIGGER trg_ShowInsertedEmployee
+ON Employees
+AFTER INSERT
+AS
+BEGIN
+    SELECT * FROM inserted;
+END;</code></pre>
+
+        <p><b>Special tables in triggers:</b></p>
+        <ul>
+            <li><b>inserted</b> → contains newly inserted rows</li>
+            <li><b>deleted</b> → contains deleted rows or old rows before update</li>
+        </ul>
+
+        <div class="note">
+            <b>Exam line:</b> A Trigger is a database object that executes automatically when a specified event occurs
+            on a table.
+        </div>
+    </div>
+
+    <!-- Cursor -->
+    <div class="section">
+        <h2>3) Cursor</h2>
+        <p><b>Definition:</b> A Cursor is used to process query results <b>one row at a time</b>.</p>
+
+        <p><b>Why use it?</b></p>
+        <ul>
+            <li>When row-by-row processing is needed</li>
+            <li>Useful for custom logic on each record</li>
+            <li>Not preferred when set-based SQL can solve the problem</li>
+        </ul>
+
+        <p><b>Cursor Steps:</b></p>
+        <ol>
+            <li>Declare cursor</li>
+            <li>Open cursor</li>
+            <li>Fetch rows</li>
+            <li>Process rows</li>
+            <li>Close cursor</li>
+            <li>Deallocate cursor</li>
+        </ol>
+
+        <p><b>Example:</b> Display employee names one by one</p>
+        <pre><code>DECLARE @name VARCHAR(50);
+
+DECLARE emp_cursor CURSOR FOR
+SELECT EmpName FROM Employees;
+
+OPEN emp_cursor;
+
+FETCH NEXT FROM emp_cursor INTO @name;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    PRINT @name;
+    FETCH NEXT FROM emp_cursor INTO @name;
+END;
+
+CLOSE emp_cursor;
+DEALLOCATE emp_cursor;</code></pre>
+
+        <div class="note">
+            <b>Exam line:</b> A Cursor is a database object used to fetch and process rows one at a time from a result
+            set.
+        </div>
+    </div>
+
+    <!-- Subquery -->
+    <div class="section">
+        <h2>4) Subquery</h2>
+        <p><b>Definition:</b> A Subquery is a query written inside another query.</p>
+
+        <p><b>Why use it?</b></p>
+        <ul>
+            <li>To get intermediate values for the main query</li>
+            <li>To compare with aggregate values like AVG, MAX, MIN</li>
+            <li>To simplify complex SQL conditions</li>
+        </ul>
+
+        <p><b>Example 1:</b> Employees with salary greater than average salary</p>
+        <pre><code>SELECT EmpName, Salary
+FROM Employees
+WHERE Salary > (
+    SELECT AVG(Salary) FROM Employees
+);</code></pre>
+
+        <p><b>Example 2:</b> Employee with maximum salary</p>
+        <pre><code>SELECT EmpName, Salary
+FROM Employees
+WHERE Salary = (
+    SELECT MAX(Salary) FROM Employees
+);</code></pre>
+
+        <p><b>Types of Subqueries:</b></p>
+        <ul>
+            <li>Single-row subquery</li>
+            <li>Multiple-row subquery</li>
+            <li>Nested subquery</li>
+        </ul>
+
+        <div class="note">
+            <b>Exam line:</b> A Subquery is a query inside another SQL query used to return data for the main query.
+        </div>
+    </div>
+
+    <!-- View -->
+    <div class="section">
+        <h2>5) View</h2>
+        <p><b>Definition:</b> A View is a virtual table created from a SQL query. It does not store data separately; it
+            shows data from one or more tables.</p>
+
+        <p><b>Why use it?</b></p>
+        <ul>
+            <li>Hide complex queries</li>
+            <li>Provide security by exposing only required columns</li>
+            <li>Reuse common SELECT queries</li>
+        </ul>
+
+        <p><b>Example:</b> Create a view to show employee names and salary</p>
+        <pre><code>CREATE VIEW EmployeeView AS
+SELECT EmpName, Salary
+FROM Employees;
+
+SELECT * FROM EmployeeView;</code></pre>
+
+        <p><b>Another example:</b> View for high-salary employees</p>
+        <pre><code>CREATE VIEW HighSalaryEmployees AS
+SELECT EmpID, EmpName, Salary
+FROM Employees
+WHERE Salary > 30000;</code></pre>
+
+        <div class="note">
+            <b>Exam line:</b> A View is a virtual table based on the result of a SQL query.
+        </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="section">
+        <h2>6) Quick Comparison</h2>
+        <table>
+            <tr>
+                <th>Concept</th>
+                <th>Purpose</th>
+                <th>Runs How?</th>
+            </tr>
+            <tr>
+                <td>Stored Procedure</td>
+                <td>Store reusable SQL logic</td>
+                <td>Executed manually using EXEC</td>
+            </tr>
+            <tr>
+                <td>Trigger</td>
+                <td>Automatic action on INSERT/UPDATE/DELETE</td>
+                <td>Runs automatically</td>
+            </tr>
+            <tr>
+                <td>Cursor</td>
+                <td>Process rows one by one</td>
+                <td>Manual row-by-row processing</td>
+            </tr>
+            <tr>
+                <td>Subquery</td>
+                <td>Query inside another query</td>
+                <td>Runs as part of main query</td>
+            </tr>
+            <tr>
+                <td>View</td>
+                <td>Virtual table from a query</td>
+                <td>Used like a table in SELECT</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+        <h2>7) Final Summary</h2>
+        <ul>
+            <li><b>Stored Procedure</b> → saved SQL program</li>
+            <li><b>Trigger</b> → automatic action on table event</li>
+            <li><b>Cursor</b> → row-by-row processing</li>
+            <li><b>Subquery</b> → query inside another query</li>
+            <li><b>View</b> → virtual table created from a query</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
