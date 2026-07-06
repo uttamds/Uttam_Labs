@@ -2,18 +2,14 @@
 <html>
 <body>
 
-<h2 id="magic">✨ JavaScript Magic ✨</h2>
+<h2 id="result"></h2>
 
-<button onclick="hideText()">Hide</button>
-<button onclick="showText()">Show</button>
+<button onclick="showFruit()">Click Me</button>
 
 <script>
-function hideText() {
-    document.getElementById("magic").style.display = "none";
-}
-
-function showText() {
-    document.getElementById("magic").style.display = "block";
+function showFruit() {
+    let fruits = ["Apple", "Mango", "Orange"];
+    document.getElementById("result").innerHTML = fruits[1];
 }
 </script>
 
