@@ -1,0 +1,57 @@
+==============
+Form Demo
+
+Create a new file called courses.html
+==============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Form Demo</title>
+</head>
+<body>
+
+    <h3>Simple Student Form</h3>
+
+    Name:
+    <input type="text" id="txtName">
+    <br><br>
+
+    Course:
+    <input type="radio" name="course" value="Java"> Java
+    <input type="radio" name="course" value="Python"> Python
+    <br><br>
+
+    <button onclick="showDetails()">Submit</button>
+
+    <hr>
+
+    <p id="result"></p>
+
+    <script>
+        function showDetails() {
+
+            // Get the name entered
+            let name = document.getElementById("txtName").value;
+
+            // Find the selected radio button
+            let course = document.querySelector('input[name="course"]:checked');
+
+            if (name == "") {
+                alert("Please enter your name.");
+                return;
+            }
+
+            if (course == null) {
+                alert("Please select a course.");
+                return;
+            }
+
+            // Display the result
+            document.getElementById("result").innerHTML =
+                "Welcome <b>" + name + "</b><br>" +
+                "Selected Course: <b>" + course.value + "</b>";
+        }
+    </script>
+
+</body>
+</html>
