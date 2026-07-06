@@ -14,13 +14,16 @@ let index = 0;
 
 function showFruit() {
 
+    // If all fruits have been displayed, reset
+    if (index == fruits.length) {
+        document.getElementById("result").innerHTML = "";
+        index = 0;
+    }
+
+    // Display the next fruit
     document.getElementById("result").innerHTML += fruits[index] + "<br>";
 
     index++;
-
-    if (index == fruits.length) {
-        index = 0;
-    }
 }
 </script>
 
