@@ -2,14 +2,25 @@
 <html>
 <body>
 
-<h2 id="result"></h2>
+<h2>Fruit List</h2>
 
-<button onclick="showFruit()">Click Me</button>
+<button onclick="showFruit()">Show Next Fruit</button>
+
+<p id="result"></p>
 
 <script>
+let fruits = ["Apple", "Mango", "Orange"];
+let index = 0;
+
 function showFruit() {
-    let fruits = ["Apple", "Mango", "Orange"];
-    document.getElementById("result").innerHTML = fruits[1];
+
+    document.getElementById("result").innerHTML += fruits[index] + "<br>";
+
+    index++;
+
+    if (index == fruits.length) {
+        index = 0;
+    }
 }
 </script>
 
