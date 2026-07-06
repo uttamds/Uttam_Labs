@@ -55,3 +55,74 @@ Create a new file called courses.html
 
 </body>
 </html>
+
+
+===============
+VERSION 2
+================
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Form Demo</title>
+</head>
+<body>
+
+    <h3>Simple Student Form</h3>
+
+    Name:
+    <input type="text" id="txtName">
+    <br><br>
+
+    City:
+    <input type="text" id="txtCity">
+    <br><br>
+
+    Course:
+    <input type="radio" name="course" value="Java"> Java
+    <input type="radio" name="course" value="Python"> Python
+    <br><br>
+
+    <button onclick="showDetails()">Submit</button>
+
+    <hr>
+
+    <p id="result"></p>
+
+    <script>
+        function showDetails() {
+
+            // Read text box values
+            let name = document.getElementById("txtName").value;
+            let city = document.getElementById("txtCity").value;
+
+            // Read selected radio button
+            let course = document.querySelector('input[name="course"]:checked');
+
+            // Simple validation
+            if (name == "") {
+                alert("Please enter your name.");
+                return;
+            }
+
+            if (city == "") {
+                alert("Please enter your city.");
+                return;
+            }
+
+            if (course == null) {
+                alert("Please select a course.");
+                return;
+            }
+
+            // Display the entered details
+            document.getElementById("result").innerHTML =
+                "<h4>Student Details</h4>" +
+                "Name: <b>" + name + "</b><br>" +
+                "City: <b>" + city + "</b><br>" +
+                "Course: <b>" + course.value + "</b>";
+        }
+    </script>
+
+</body>
+</html>
