@@ -1,3 +1,392 @@
+
+# Session 5
+
+Since your students have just completed forms, assertions, and navigation, **tables are the perfect next topic**. The idea is to teach them **how to locate rows and columns and perform actions based on table data**, rather than memorizing Cypress commands.
+
+---
+
+# Session Plan (55 minutes)
+
+| Time       | Activity                     |
+| ---------- | ---------------------------- |
+| 5 min      | Quick recap                  |
+| **30 min** | **Working with HTML Tables** |
+| 15 min     | Hands-on Exercise            |
+| 5 min      | Q&A                          |
+
+---
+
+# 30-Minute Coverage – Working with Tables
+
+## Part 1 (5 min) – Why Tables?
+
+Start with real-world examples.
+
+> Where do we see tables?
+
+* Student marks
+* Employee list
+* Amazon orders
+* Bank transactions
+* Hospital appointments
+* Admin dashboards
+
+Explain:
+
+> Automation engineers rarely test only forms.
+> Most applications display data in **tables**.
+> We often need to locate one row and perform an action.
+
+Example:
+
+```
+ID    Name      City      Status
+
+101   Rahul     Pune      Active
+102   Priya     Mysore    Inactive
+103   Amit      Delhi     Active
+```
+
+Question:
+
+> Click Edit for Rahul.
+
+This becomes today's objective.
+
+---
+
+# Part 2 (5 min) – Understanding HTML Tables
+
+Show a simple table.
+
+```html
+<table>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>City</th>
+</tr>
+
+<tr>
+<td>101</td>
+<td>Rahul</td>
+<td>Pune</td>
+</tr>
+
+<tr>
+<td>102</td>
+<td>Priya</td>
+<td>Mysore</td>
+</tr>
+
+</table>
+```
+
+Explain
+
+```
+table
+   tr  -> row
+      td -> column
+```
+
+Then inspect using DevTools.
+
+---
+
+# Part 3 (15 min) – Cypress Commands
+
+## 1. Count Rows
+
+```javascript
+cy.get("table tbody tr")
+```
+
+How many rows?
+
+```javascript
+cy.get("table tbody tr")
+.should("have.length",3)
+```
+
+---
+
+## 2. first()
+
+Get first row.
+
+```javascript
+cy.get("table tbody tr")
+.first()
+```
+
+Verify
+
+```javascript
+cy.get("table tbody tr")
+.first()
+.should("contain","Rahul")
+```
+
+---
+
+## 3. last()
+
+```javascript
+cy.get("table tbody tr")
+.last()
+.should("contain","Amit")
+```
+
+---
+
+## 4. eq()
+
+Explain indexing.
+
+```
+0
+1
+2
+3
+```
+
+Example
+
+```javascript
+cy.get("table tbody tr")
+.eq(1)
+.should("contain","Priya")
+```
+
+Ask:
+
+What will eq(2) return?
+
+---
+
+## 5. each()
+
+The most useful command.
+
+```javascript
+cy.get("table tbody tr").each(($row)=>{
+
+    cy.wrap($row).contains("Active")
+
+})
+```
+
+Explain
+
+```
+each()
+
+↓
+
+Row 1
+
+↓
+
+Row 2
+
+↓
+
+Row 3
+```
+
+Then print text.
+
+```javascript
+cy.get("table tbody tr").each(($row)=>{
+
+    cy.log($row.text())
+
+})
+```
+
+Students love seeing logs.
+
+---
+
+## 6. find()
+
+Find a specific cell.
+
+```javascript
+cy.get("table tbody tr")
+.eq(1)
+.find("td")
+.eq(2)
+```
+
+Explain visually
+
+```
+Row 2
+
+ID
+Name
+City
+
+↓
+
+Find td
+
+↓
+
+Take index 2
+
+↓
+
+City
+```
+
+---
+
+# Part 4 (5 min) – Real-world Demo
+
+Use a table like:
+
+| ID  | Name  | City   | Status   | Action |
+| --- | ----- | ------ | -------- | ------ |
+| 101 | Rahul | Pune   | Active   | Edit   |
+| 102 | Priya | Delhi  | Inactive | Edit   |
+| 103 | Amit  | Mumbai | Active   | Edit   |
+
+Tasks:
+
+### Demo 1
+
+Print every student's name.
+
+```javascript
+cy.get("tbody tr").each(($row)=>{
+
+    cy.log($row.find("td").eq(1).text())
+
+})
+```
+
+---
+
+### Demo 2
+
+Verify Priya exists.
+
+```javascript
+cy.contains("td","Priya")
+.should("exist")
+```
+
+---
+
+### Demo 3
+
+Click Edit for Rahul.
+
+```javascript
+cy.contains("td","Rahul")
+.parent()
+.contains("Edit")
+.click()
+```
+
+Students immediately understand why `parent()` is useful.
+
+---
+
+### Demo 4
+
+Count Active students.
+
+Use `each()` and an `if` condition.
+
+```javascript
+let count = 0
+
+cy.get("tbody tr").each(($row)=>{
+
+    if($row.text().includes("Active"))
+        count++
+
+}).then(()=>{
+
+    cy.log(count)
+
+})
+```
+
+Introduce simple logic inside Cypress tests.
+
+---
+
+# 15-Minute Hands-on Exercise
+
+Provide students with a table of 5 students:
+
+| ID  | Name  | Marks | City      | Status   |
+| --- | ----- | ----- | --------- | -------- |
+| 101 | Rahul | 80    | Pune      | Active   |
+| 102 | Priya | 95    | Delhi     | Active   |
+| 103 | Amit  | 60    | Mumbai    | Inactive |
+| 104 | Kiran | 88    | Bangalore | Active   |
+| 105 | Sneha | 72    | Chennai   | Inactive |
+
+### Challenge 1
+
+Print all student names.
+
+---
+
+### Challenge 2
+
+Verify there are exactly 5 rows.
+
+---
+
+### Challenge 3
+
+Verify the first student is Rahul.
+
+---
+
+### Challenge 4
+
+Verify the last student is Sneha.
+
+---
+
+### Challenge 5
+
+Print only the Active students.
+
+---
+
+### Challenge 6 (Bonus)
+
+Click the **Edit** button for **Kiran** (if an Action column is included).
+
+---
+
+## Key Takeaway Slide
+
+By the end of this session, students should be able to:
+
+* Identify table rows (`tr`) and cells (`td`) using browser DevTools.
+* Count rows and verify table contents with `have.length`.
+* Access specific rows using `first()`, `last()`, and `eq()`.
+* Iterate through all rows using `each()`.
+* Locate cells within a row using `find()`.
+* Build practical automation scenarios such as searching for a record, validating data, and clicking an action button in the correct row.
+
+This keeps the session interactive, realistic, and closely aligned with tasks automation engineers perform on web applications.
+
+
+# Session 4
+
+
 For **Session 4**, I would make it as practical as possible. By the end of this session, students should be able to automate an actual form and understand the most commonly used Cypress assertions.
 
 ---
