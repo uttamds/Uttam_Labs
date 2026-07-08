@@ -1,6 +1,257 @@
 
 # Session 5
 
+A much better way to teach this is through a **single real-world scenario** instead of isolated command demos.
+
+---
+
+# Use Case: Student Management Portal
+
+Suppose you're testing the **Admin Portal** of an engineering college.
+
+After students register, the admin sees the following table.
+
+| Roll No | Name  | Department | Semester | Status   | Action |
+| ------- | ----- | ---------- | -------- | -------- | ------ |
+| 101     | Rahul | CSE        | 6        | Active   | Edit   |
+| 102     | Priya | ISE        | 6        | Inactive | Edit   |
+| 103     | Amit  | ECE        | 5        | Active   | Edit   |
+| 104     | Sneha | ME         | 7        | Active   | Edit   |
+| 105     | Kiran | CSE        | 5        | Inactive | Edit   |
+
+Your job as a QA Engineer is to verify different aspects of this table.
+
+---
+
+# Cypress Test
+
+```javascript
+describe("Student Management Table", () => {
+
+    beforeEach(() => {
+
+        cy.visit("https://example.com/student-management")
+
+    })
+
+    it("Validate Student Table", () => {
+
+        //---------------------------------------------------
+        // 1. Verify the table has 5 students
+        //---------------------------------------------------
+
+        cy.get("table tbody tr")
+            .should("have.length", 5)
+
+        //---------------------------------------------------
+        // 2. Verify the first student is Rahul
+        //---------------------------------------------------
+
+        cy.get("table tbody tr")
+            .first()
+            .should("contain", "Rahul")
+
+        //---------------------------------------------------
+        // 3. Verify the last student is Kiran
+        //---------------------------------------------------
+
+        cy.get("table tbody tr")
+            .last()
+            .should("contain", "Kiran")
+
+        //---------------------------------------------------
+        // 4. Verify the third student belongs to ECE
+        //---------------------------------------------------
+
+        cy.get("table tbody tr")
+            .eq(2)
+            .should("contain", "ECE")
+
+        //---------------------------------------------------
+        // 5. Read the Department column of second student
+        //---------------------------------------------------
+
+        cy.get("table tbody tr")
+            .eq(1)
+            .find("td")
+            .eq(2)
+            .should("contain", "ISE")
+
+        //---------------------------------------------------
+        // 6. Print all student names
+        //---------------------------------------------------
+
+        cy.get("table tbody tr").each(($row) => {
+
+            let studentName = $row.find("td").eq(1).text()
+
+            cy.log(studentName)
+
+        })
+
+        //---------------------------------------------------
+        // 7. Count Active students
+        //---------------------------------------------------
+
+        let activeCount = 0
+
+        cy.get("table tbody tr").each(($row) => {
+
+            let status = $row.find("td").eq(4).text()
+
+            if (status == "Active") {
+
+                activeCount++
+
+            }
+
+        }).then(() => {
+
+            cy.log("Total Active Students : " + activeCount)
+
+            expect(activeCount).to.equal(3)
+
+        })
+
+        //---------------------------------------------------
+        // 8. Click Edit for Sneha
+        //---------------------------------------------------
+
+        cy.get("table tbody tr").each(($row) => {
+
+            let student = $row.find("td").eq(1).text()
+
+            if (student == "Sneha") {
+
+                cy.wrap($row)
+                    .contains("Edit")
+                    .click()
+
+            }
+
+        })
+
+    })
+
+})
+```
+
+---
+
+# What Students Learn
+
+| Requirement                  | Cypress Command         |
+| ---------------------------- | ----------------------- |
+| Count students               | `should("have.length")` |
+| First row                    | `first()`               |
+| Last row                     | `last()`                |
+| Third row                    | `eq()`                  |
+| Specific column              | `find()`                |
+| Loop every row               | `each()`                |
+| Conditional logic            | `if()`                  |
+| Click button in matching row | `wrap()` + `contains()` |
+
+---
+
+# Even Better Demo (Feels Like Real Testing)
+
+Instead of only checking values, give them a **story**.
+
+> **Scenario:** The Placement Officer wants to verify the list of eligible students before a campus drive.
+
+### Test Cases
+
+### ✅ Test Case 1
+
+Verify exactly **5 students** are listed.
+
+---
+
+### ✅ Test Case 2
+
+Verify **Rahul** is the first student in the list.
+
+---
+
+### ✅ Test Case 3
+
+Verify the last student is **Kiran**.
+
+---
+
+### ✅ Test Case 4
+
+Print all student names in the Cypress log.
+
+Expected Output
+
+```
+Rahul
+Priya
+Amit
+Sneha
+Kiran
+```
+
+---
+
+### ✅ Test Case 5
+
+Verify there are **3 Active** students.
+
+---
+
+### ✅ Test Case 6
+
+Find **Sneha** and click **Edit**.
+
+---
+
+### ✅ Test Case 7
+
+Verify every student has a non-empty department.
+
+```javascript
+cy.get("tbody tr").each(($row)=>{
+
+    let department = $row.find("td").eq(2).text()
+
+    expect(department).to.not.equal("")
+
+})
+```
+
+---
+
+### ✅ Test Case 8
+
+Verify every semester is between **1 and 8**.
+
+```javascript
+cy.get("tbody tr").each(($row)=>{
+
+    let semester = Number($row.find("td").eq(3).text())
+
+    expect(semester).to.be.within(1,8)
+
+})
+```
+
+---
+
+## Why this approach works
+
+Rather than teaching `first()`, `last()`, `eq()`, `find()`, and `each()` as unrelated commands, the students experience them as tools to solve realistic QA tasks:
+
+* **`first()` / `last()`** – Validate boundary records.
+* **`eq()`** – Access a specific row or column.
+* **`find()`** – Drill into cells within a row.
+* **`each()`** – Iterate through records to validate or search.
+* **Conditional logic** – Perform actions only when a matching record is found.
+
+This mirrors how Cypress is used in real-world applications, making the concepts easier to understand and remember.
+
+
 Since your students have just completed forms, assertions, and navigation, **tables are the perfect next topic**. The idea is to teach them **how to locate rows and columns and perform actions based on table data**, rather than memorizing Cypress commands.
 
 ---
