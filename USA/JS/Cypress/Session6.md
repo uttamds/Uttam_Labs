@@ -17,36 +17,10 @@
 
 # ===================================================
 
-If they already know how to automate forms, buttons, dropdowns, checkboxes, tables, and basic assertions, then I would **not** spend more time on UI commands. At that point, it's better to introduce concepts that make them feel like they're doing "real automation."
-
-For engineering students, I'd suggest this progression.
-
-| Priority | Topic                                   | Industry Relevance | Difficulty  |
-| -------- | --------------------------------------- | ------------------ | ----------- |
-| ⭐⭐⭐⭐⭐    | Data-Driven Testing (Fixtures)          | Very High          | Easy        |
-| ⭐⭐⭐⭐⭐    | API Testing                             | Very High          | Easy-Medium |
-| ⭐⭐⭐⭐⭐    | Network Intercept (`cy.intercept()`)    | Very High          | Medium      |
-| ⭐⭐⭐⭐     | Custom Commands                         | High               | Medium      |
-| ⭐⭐⭐⭐     | Page Object Model                       | High               | Medium      |
-| ⭐⭐⭐      | Environment Variables                   | Medium             | Easy        |
-| ⭐⭐⭐⭐     | Reports & Screenshots                   | High               | Easy        |
-| ⭐⭐⭐⭐     | CI/CD (GitHub Actions/Jenkins overview) | High               | Medium      |
 
 ---
 
-# My recommendation
 
-I would teach **Data-Driven Testing first**, followed immediately by **API Testing**.
-
-Why?
-
-Students usually think automation means:
-
-> Open browser → Click → Type → Verify
-
-When they learn fixtures and APIs, they realize automation is much broader than UI testing.
-
----
 
 # Session 1 – Data-Driven Testing (Highly Recommended)
 
