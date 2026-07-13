@@ -18,7 +18,219 @@
 # ===================================================
 
 
+
+# API Testing
+
+That's even better for a beginner class. Keep everything centered around **one employee record** and use only **GET** and **POST**. Students won't get distracted by multiple APIs or datasets.
+
 ---
+
+# Problem Statement
+
+### Company: ABC Technologies
+
+You have recently joined **ABC Technologies** as a **QA Automation Engineer**.
+
+The company has developed an **Employee Management System (EMS)**. The frontend website is still under development, but the backend team has already exposed the APIs.
+
+Your task is to verify that the APIs are working correctly before the UI is released.
+
+Today, you will test only two operations:
+
+1. Search an existing employee (**GET**)
+2. Add a new employee (**POST**)
+
+---
+
+# Employee JSON
+
+This is the employee information stored in the system.
+
+```json
+{
+    "id": 101,
+    "name": "Rahul Sharma",
+    "department": "Engineering",
+    "designation": "Software Engineer",
+    "salary": 75000,
+    "email": "rahul.sharma@abctech.com",
+    "phone": "9876543210",
+    "city": "Bangalore",
+    "status": "Active"
+}
+```
+
+Explain each field briefly:
+
+| Field       | Meaning                             |
+| ----------- | ----------------------------------- |
+| id          | Unique employee number              |
+| name        | Employee name                       |
+| department  | Department where the employee works |
+| designation | Job title                           |
+| salary      | Monthly salary                      |
+| email       | Official company email              |
+| phone       | Contact number                      |
+| city        | Work location                       |
+| status      | Employee status (Active/Inactive)   |
+
+---
+
+# Test Case 1 – GET Employee
+
+### Business Scenario
+
+An HR executive wants to view the details of Employee **101**.
+
+Instead of opening the website and searching manually, we directly test the backend API.
+
+### API
+
+```
+GET /employees/101
+```
+
+### Cypress Test
+
+```javascript
+describe("Employee Management System", () => {
+
+    it("Get Employee Details", () => {
+
+        cy.request("https://jsonplaceholder.typicode.com/users/1")
+
+            .then((response) => {
+
+                expect(response.status).to.equal(200)
+
+                cy.log("Employee Name : " + response.body.name)
+                cy.log("Email : " + response.body.email)
+                cy.log("Phone : " + response.body.phone)
+                cy.log("City : " + response.body.address.city)
+
+            })
+
+    })
+
+})
+```
+
+### Teaching Points
+
+* `cy.request()` sends the request directly to the server.
+* `response.status` should be **200**.
+* `response.body` contains the employee information.
+* We can read individual fields from the JSON.
+
+---
+
+# Test Case 2 – POST Employee
+
+### Business Scenario
+
+A new employee has joined ABC Technologies.
+
+HR wants to register the employee in the system.
+
+Instead of filling a web form, we directly call the API.
+
+### API
+
+```
+POST /employees
+```
+
+### Request Body
+
+```json
+{
+    "name": "Ananya Rao",
+    "department": "QA",
+    "designation": "Test Engineer",
+    "salary": 60000,
+    "email": "ananya.rao@abctech.com",
+    "phone": "9876501234",
+    "city": "Mysore",
+    "status": "Active"
+}
+```
+
+### Cypress Test
+
+```javascript
+describe("Employee Management System", () => {
+
+    it("Add New Employee", () => {
+
+        cy.request({
+
+            method: "POST",
+
+            url: "https://jsonplaceholder.typicode.com/posts",
+
+            body: {
+
+                name: "Ananya Rao",
+                department: "QA",
+                designation: "Test Engineer",
+                salary: 60000,
+                email: "ananya.rao@abctech.com",
+                phone: "9876501234",
+                city: "Mysore",
+                status: "Active"
+
+            }
+
+        })
+
+        .then((response) => {
+
+            expect(response.status).to.equal(201)
+
+            cy.log("Employee Created Successfully")
+            cy.log("Generated ID : " + response.body.id)
+            cy.log("Employee : " + response.body.name)
+
+        })
+
+    })
+
+})
+```
+
+---
+
+# Classroom Discussion
+
+Ask these questions after the tests:
+
+1. **Why did the GET request return `200`?**
+
+   * Because we successfully retrieved an existing employee.
+
+2. **Why did the POST request return `201`?**
+
+   * Because a new employee record was created.
+
+3. **Which request only reads data?**
+
+   * GET.
+
+4. **Which request sends new data to the server?**
+
+   * POST.
+
+---
+
+# Summary
+
+| Operation               | Business Activity            | HTTP Method | Expected Status |
+| ----------------------- | ---------------------------- | ----------- | --------------- |
+| View employee details   | HR searches for Employee 101 | GET         | 200 OK          |
+| Register a new employee | HR adds a new employee       | POST        | 201 Created     |
+
+> **Note for students:** Since we're using the free **JSONPlaceholder** service for learning, the URLs (`/users/1` and `/posts`) don't exactly match our Employee Management System story. In a real company, these would typically be endpoints like `/employees/101` and `/employees`. We're using JSONPlaceholder only because it lets us practice API testing without needing to build our own backend first.
+
 
 
 
