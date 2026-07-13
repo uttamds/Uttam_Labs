@@ -21,9 +21,12 @@
 
 # API Testing
 
-That's even better for a beginner class. Keep everything centered around **one employee record** and use only **GET** and **POST**. Students won't get distracted by multiple APIs or datasets.
+
 
 ---
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ed838b33-0ce2-4814-bf1c-bd8fefcfb5db" />
+
 
 # Problem Statement
 
