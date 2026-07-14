@@ -133,3 +133,119 @@ Then continue with your test.
 ## One-line definition for students
 
 > **`cy.intercept()` tells Cypress to watch (or even fake) API requests made by the application. Combined with `cy.wait()`, it makes tests more reliable by waiting for the API response before continuing.**
+
+# Example 2
+
+Here's a simple example that students can easily understand.
+
+### Scenario
+
+When the user clicks the **Load Employees** button, the application calls:
+
+```text
+GET /employees
+```
+
+We want Cypress to:
+
+1. Watch the API call.
+2. Wait until it finishes.
+3. Verify that employees are displayed.
+
+```javascript
+describe("Employee List", () => {
+
+    it("Loads employees successfully", () => {
+
+        // Watch the API request
+        cy.intercept("GET", "/employees").as("getEmployees")
+
+        // Open the application
+        cy.visit("http://localhost:3000")
+
+        // Click the button that loads employees
+        cy.get("#loadEmployees").click()
+
+        // Wait for the API to finish
+        cy.wait("@getEmployees")
+
+        // Verify the employees are displayed
+        cy.get("table tbody tr")
+          .should("have.length.greaterThan", 0)
+
+    })
+
+})
+```
+
+---
+
+## What each line does
+
+```javascript
+cy.intercept("GET", "/employees").as("getEmployees")
+```
+
+➡️ Start watching the **GET /employees** API.
+
+---
+
+```javascript
+cy.visit("http://localhost:3000")
+```
+
+➡️ Open the application.
+
+---
+
+```javascript
+cy.get("#loadEmployees").click()
+```
+
+➡️ User clicks **Load Employees**.
+
+---
+
+```javascript
+cy.wait("@getEmployees")
+```
+
+➡️ Wait until the API response comes back.
+
+---
+
+```javascript
+cy.get("table tbody tr")
+  .should("have.length.greaterThan", 0)
+```
+
+➡️ Verify that at least one employee is displayed.
+
+---
+
+### Flow Diagram
+
+```text
+Open Application
+        │
+        ▼
+Start Watching API
+        │
+        ▼
+Click "Load Employees"
+        │
+        ▼
+GET /employees
+        │
+        ▼
+Server Returns Data
+        │
+        ▼
+cy.wait("@getEmployees")
+        │
+        ▼
+Verify Employee Table
+```
+
+This is probably the **most common real-world use** of `cy.intercept()` in Cypress end-to-end testing: **wait for the backend API to complete before verifying the UI.**
+
