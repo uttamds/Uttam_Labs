@@ -1,3 +1,14 @@
+INSTRUCTIONS
+1. CREATE A NEW PROJECT CALLED FLASK_LOGIN
+2. CREATE templates folder for all HTML files
+3. CREATE hello.py
+
+
+
+
+
+
+
 Layout.html
 ===============
 
