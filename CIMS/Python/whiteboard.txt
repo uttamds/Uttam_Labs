@@ -1,180 +1,42 @@
-
-class TravelRoute:
-    def __init__(self, route_id, source, destination, fare, seats):
-        self.route_id = route_id
-        self.source = source
-        self.destination = destination
-        self.fare = fare
-        self.seats = seats
-
-    def display_route(self):
-        print("Route ID      :", self.route_id)
-        print("Source        :", self.source)
-        print("Destination   :", self.destination)
-        print("Fare          :", self.fare)
-        print("Seats Available:", self.seats)
-        print("-" * 35)
-
-
-# Creating objects for ABC Travel Company routes
-route1 = TravelRoute("R101", "Mumbai", "Pune", 800, 25)
-route2 = TravelRoute("R102", "Mumbai", "Goa", 2500, 18)
-route3 = TravelRoute("R103", "Pune", "Nagpur", 1800, 20)
-
-# Displaying route details
-print("ABC Travel Company - Available Routes")
-print("=" * 40)
-
-route1.display_route()
-route2.display_route()
-route3.display_route()
-
-
-====================
-
-INHERITANCE
-==================
-
-class TravelRoute:
-    def __init__(self, source, destination, fare):
-        self.source = source
-        self.destination = destination
-        self.fare = fare
-
-    def show_route(self):
-        print("Route:", self.source, "to", self.destination)
-        print("Base Fare:", self.fare)
-
-
-class BusRoute(TravelRoute):
-    def __init__(self, source, destination, fare, bus_type):
-        super().__init__(source, destination, fare)   # calling parent constructor
-        self.bus_type = bus_type
-
-    def show_route(self):
-        total_fare = self.fare + 100   # extra service charge
-        print("Route:", self.source, "to", self.destination)
-        print("Bus Type:", self.bus_type)
-        print("Final Fare:", total_fare)
-
-
-# objects
-r1 = TravelRoute("Mumbai", "Pune", 800)
-r2 = BusRoute("Mumbai", "Goa", 2500, "AC Sleeper")
-
-print("Parent Class Object")
-r1.show_route()
-
-print("\nChild Class Object")
-r2.show_route()
-
-
-=========================
-polymorphism
-============================
-
-
-class Payment:
-    def pay(self, amount):
-        print(f"Paying ₹{amount}")
-
-class CreditCard(Payment):
-    def pay(self, amount):
-        print(f"Paid ₹{amount} using Credit Card")
-
-class UPI(Payment):
-    def pay(self, amount):
-        print(f"Paid ₹{amount} using UPI")
-
-class Cash(Payment):
-    def pay(self, amount):
-        print(f"Paid ₹{amount} using Cash")
-
-
-# Function showing polymorphism
-def make_payment(payment_method, amount):
-    payment_method.pay(amount)
-
-
-# Objects of different classes
-cc = CreditCard()
-upi = UPI()
-cash = Cash()
-
-# Same function call, different behavior
-make_payment(cc, 1500)
-
-============
-encapsulation
-=========
-class BankAcc:
-    def __init__(self, accno, pin):
-        self.__pin = pin
-        self.accno = accno
-
-    def showpin(self):
-        print("Enter OTP")
-        if int(input()) == 3939:
-            print("Pin =", self.__pin)
-        else:
-            print("Invalid OTP")
-
-
-b1 = BankAcc(2323, 8888)
-b1.showpin()
-make_payment(upi, 800)
-make_payment(cash, 300)
-
-
-myform.html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Registration Form</title>
+    <title>Session Storage Demo</title>
 </head>
 <body>
 
-    <h2>Student Registration Form</h2>
+    <h2>Session Storage Demo</h2>
 
-    <form>
+    Name:
+    <input type="text" id="name">
 
-        <label>Full Name:</label><br>
-        <input type="text" name="fullname"><br><br>
+    <button onclick="saveName()">Save</button>
+    <button onclick="showName()">Show</button>
+    <button onclick="clearName()">Clear</button>
 
-        <label>Email:</label><br>
-        <input type="email" name="email"><br><br>
+    <h3 id="result"></h3>
 
-        <label>Password:</label><br>
-        <input type="password" name="password"><br><br>
+    <script>
 
-        <label>Gender:</label><br>
-        <input type="radio" name="gender" value="Male"> Male
-        <input type="radio" name="gender" value="Female"> Female
-        <br><br>
+        function saveName() {
+            let name = document.getElementById("name").value;
+            sessionStorage.setItem("studentName", name);
+            alert("Name Saved");
+        }
 
-        <label>Skills:</label><br>
-        <input type="checkbox" name="skill" value="HTML"> HTML
-        <input type="checkbox" name="skill" value="CSS"> CSS
-        <input type="checkbox" name="skill" value="JavaScript"> JavaScript
-        <br><br>
+        function showName() {
+            let name = sessionStorage.getItem("studentName");
+            document.getElementById("result").innerHTML =
+                "Stored Name: " + name;
+        }
 
-        <label>City:</label><br>
-        <select name="city">
-            <option>Bengaluru</option>
-            <option>Mumbai</option>
-            <option>Chennai</option>
-            <option>Hyderabad</option>
-        </select>
-        <br><br>
+        function clearName() {
+            sessionStorage.removeItem("studentName");
+            document.getElementById("result").innerHTML = "";
+            alert("Session Storage Cleared");
+        }
 
-        <label>Address:</label><br>
-        <textarea rows="4" cols="30"></textarea>
-        <br><br>
-
-        <input type="submit" value="Submit">
-        <input type="reset" value="Clear">
-
-    </form>
+    </script>
 
 </body>
 </html>
