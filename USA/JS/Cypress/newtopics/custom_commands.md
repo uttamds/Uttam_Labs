@@ -100,6 +100,240 @@ This follows the software engineering principle of **"Write Once, Reuse Many Tim
 * **Reduce development effort** when creating new test cases, as common actions are already available as reusable commands.
 * **Support scalable test automation**, making large Cypress projects easier to organize and maintain.
 
+Once students understand **how to create custom commands**, it's best to show them a **real-world scenario** where custom commands make tests cleaner and reusable.
+
+## Use Case: E-commerce Website (Amazon/Flipkart Style)
+
+Suppose your application has a login page, and **every test requires the user to log in** before performing any action.
+
+Instead of repeating the login steps in every test, create a custom command.
+
+---
+
+## Project Structure
+
+```text
+cypress/
+│
+├── e2e/
+│   ├── addToCart.cy.js
+│   ├── checkout.cy.js
+│   └── wishlist.cy.js
+│
+└── support/
+    ├── commands.js
+    └── e2e.js
+```
+
+---
+
+# Step 1: Create a Custom Command
+
+**commands.js**
+
+```javascript
+Cypress.Commands.add("login", (email, password) => {
+
+    cy.visit("https://www.demoblaze.com")
+
+    cy.contains("Log in").click()
+
+    cy.get("#loginusername").type(email)
+
+    cy.get("#loginpassword").type(password)
+
+    cy.contains("button", "Log in").click()
+
+    cy.contains("Welcome").should("be.visible")
+
+})
+```
+
+Now, **`cy.login()`** behaves like a built-in Cypress command.
+
+---
+
+# Step 2: Use It in Different Tests
+
+### Test 1 – Add Product to Cart
+
+```javascript
+describe("Shopping Cart", () => {
+
+    it("Adds a laptop to cart", () => {
+
+        cy.login("testuser", "Password123")
+
+        cy.contains("Laptops").click()
+
+        cy.contains("Sony vaio i5").click()
+
+        cy.contains("Add to cart").click()
+
+        cy.on("window:alert", (msg) => {
+
+            expect(msg).to.equal("Product added")
+
+        })
+
+    })
+
+})
+```
+
+---
+
+### Test 2 – Checkout
+
+```javascript
+describe("Checkout", () => {
+
+    it("Places an order", () => {
+
+        cy.login("testuser", "Password123")
+
+        cy.contains("Cart").click()
+
+        cy.contains("Place Order").click()
+
+        cy.get("#name").type("Rahul")
+
+        cy.get("#country").type("India")
+
+        cy.contains("Purchase").click()
+
+    })
+
+})
+```
+
+---
+
+### Test 3 – Logout
+
+```javascript
+describe("Logout", () => {
+
+    it("Logs out successfully", () => {
+
+        cy.login("testuser", "Password123")
+
+        cy.contains("Log out").click()
+
+        cy.contains("Log in").should("be.visible")
+
+    })
+
+})
+```
+
+Notice that the login code appears **only once**.
+
+---
+
+# Why is this better?
+
+Without a custom command, every test would contain the same login steps:
+
+```javascript
+cy.visit(...)
+cy.contains("Log in").click()
+cy.get(...).type(...)
+cy.get(...).type(...)
+cy.contains("Log in").click()
+```
+
+This repetition:
+
+* Increases maintenance effort.
+* Makes tests longer and harder to read.
+* Requires updates in multiple places if the login page changes.
+
+With a custom command:
+
+```javascript
+cy.login("testuser", "Password123")
+```
+
+the test immediately communicates its intent, while the implementation remains in one place.
+
+---
+
+# A More Advanced Example
+
+Real projects often need to verify whether a user has successfully logged in.
+
+**commands.js**
+
+```javascript
+Cypress.Commands.add("verifyLoggedInUser", (username) => {
+
+    cy.contains(`Welcome ${username}`)
+        .should("be.visible")
+
+})
+```
+
+Use it like this:
+
+```javascript
+cy.login("testuser", "Password123")
+
+cy.verifyLoggedInUser("testuser")
+```
+
+---
+
+# Another Practical Command
+
+Suppose many pages display a loading spinner.
+
+```javascript
+Cypress.Commands.add("waitForLoader", () => {
+
+    cy.get(".loading-spinner")
+        .should("not.exist")
+
+})
+```
+
+Usage:
+
+```javascript
+cy.login("testuser", "Password123")
+
+cy.waitForLoader()
+
+cy.contains("Orders").click()
+```
+
+---
+
+# Key Teaching Point
+
+A custom command should represent a **business action**, not just a single Cypress command.
+
+Good examples:
+
+* `cy.login()`
+* `cy.logout()`
+* `cy.addProductToCart()`
+* `cy.searchProduct()`
+* `cy.placeOrder()`
+* `cy.waitForLoader()`
+* `cy.verifyLoggedInUser()`
+
+Avoid creating custom commands for one-line wrappers such as:
+
+```javascript
+cy.clickButton()
+cy.typeText()
+cy.pressEnter()
+```
+
+These add little value because Cypress already provides clear built-in commands. The greatest benefit comes from encapsulating **multi-step workflows that are reused across many tests**, making the test suite easier to read and maintain.
+
+
 ---
 
 ### In Summary
