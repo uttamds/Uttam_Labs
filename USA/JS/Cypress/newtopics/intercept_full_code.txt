@@ -1,0 +1,39 @@
+describe("cy.intercept() - GET comments/* Example", () => {
+
+  it("Intercepts and verifies the Get Comment request", () => {
+
+    // Visit the Network Requests page
+    cy.visit("https://example.cypress.io/commands/network-requests")
+
+    // Watch for GET requests to comments/*
+    cy.intercept("GET", "**/comments/*").as("getComment")
+
+    // Click the button that triggers the API call
+    cy.contains("Get Comment").click()
+
+    // Wait for the intercepted request
+    cy.wait("@getComment").then((interception) => {
+
+      // Verify request details
+      expect(interception.request.method).to.equal("GET")
+      expect(interception.request.url).to.include("/comments/1")
+
+      // Verify response details
+      expect(interception.response.statusCode).to.be.oneOf([200, 304])
+      expect(interception.response.body).to.have.property("id", 1)
+      expect(interception.response.body).to.have.property("email")
+      expect(interception.response.body).to.have.property("name")
+      expect(interception.response.body).to.have.property("body")
+
+      // Log response to Cypress Command Log
+      cy.log(interception.response.body.email)
+      cy.log(interception.response.body.name)
+    })
+
+    // Verify the UI displays the comment
+    cy.get(".network-comment")
+      .should("be.visible")
+      .and("contain.text", "laudantium")
+  })
+
+})
