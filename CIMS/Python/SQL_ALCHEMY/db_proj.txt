@@ -1,0 +1,151 @@
+INSTRUCTIONS
+
+CREATE THE HTML FILE UNDER TEMPLATES FOLDER IN THE PROJECT
+
+
+
+=======================
+templates/login.html
+=======================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask SQLAlchemy Login</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background:#f2f2f2;
+        }
+
+        .container{
+            width:350px;
+            margin:100px auto;
+            background:white;
+            padding:25px;
+            border-radius:8px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        h2{
+            text-align:center;
+            color:#333;
+        }
+
+        input[type=text]{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing:border-box;
+        }
+
+        input[type=submit]{
+            width:100%;
+            padding:10px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        input[type=submit]:hover{
+            background:#0056b3;
+        }
+
+        .message{
+            text-align:center;
+            margin-top:20px;
+            color:green;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>User Login</h2>
+
+    <form method="POST">
+
+        <label>Username</label>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            required>
+
+        <input type="submit" value="Login">
+
+    </form>
+
+    {% if message %}
+        <div class="message">
+            {{ message }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
+
+
+
+===============================
+app.py
+=========
+
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), unique=True, nullable=False)
+
+
+@app.route("/", methods=["GET", "POST"])
+def login():
+
+    message = ""
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+
+        user = User.query.filter_by(username=username).first()
+
+        if user:
+            message = f"Welcome {username}"
+        else:
+            new_user = User(username=username)
+            db.session.add(new_user)
+            db.session.commit()
+            message = f"{username} added to database."
+
+    return render_template("login.html", message=message)
+
+
+if __name__ == "__main__":
+
+    with app.app_context():
+        db.create_all()
+
+    app.run(debug=True)
