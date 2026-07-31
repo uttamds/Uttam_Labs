@@ -1,0 +1,23 @@
+describe("Screenshot Demo", () => {
+
+  it("Take Screenshot of Homepage", () => {
+
+    // Open the website
+    cy.visit("https://example.com")
+
+    // Verify the page title
+    cy.title().should("eq", "Example Domain")
+
+    // Verify the heading (Intentionally incorrect)
+    cy.get("h1")
+      .should("be.visible")
+      .and("have.text", "Welcome")    // <-- This will fail
+
+    // This line will never execute because the test fails above
+    cy.screenshot("Homepage", {
+      capture: "fullPage"
+    })
+
+  })
+
+})
