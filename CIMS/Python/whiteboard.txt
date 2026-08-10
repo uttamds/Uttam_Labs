@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Session Storage Demo</title>
+    <title>Users</title>
 </head>
+
 <body>
 
-    <h2>Session Storage Demo</h2>
+<h2>Users</h2>
 
-    Name:
-    <input type="text" id="name">
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
 
-    <button onclick="saveName()">Save</button>
-    <button onclick="showName()">Show</button>
-    <button onclick="clearName()">Clear</button>
+    <tbody id="userTable">
+    </tbody>
+</table>
 
-    <h3 id="result"></h3>
+<script>
 
-    <script>
+fetch("http://127.0.0.1:5000/api/users")
+    .then(response => response.json())
+    .then(data => {
 
-        function saveName() {
-            let name = document.getElementById("name").value;
-            sessionStorage.setItem("studentName", name);
-            alert("Name Saved");
-        }
+        let rows = "";
 
-        function showName() {
-            let name = sessionStorage.getItem("studentName");
-            document.getElementById("result").innerHTML =
-                "Stored Name: " + name;
-        }
+        data.users.forEach(user => {
 
-        function clearName() {
-            sessionStorage.removeItem("studentName");
-            document.getElementById("result").innerHTML = "";
-            alert("Session Storage Cleared");
-        }
+            rows += `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.email}</td>
+                </tr>
+            `;
 
-    </script>
+        });
+
+        document.getElementById("userTable").innerHTML = rows;
+
+    });
+
+</script>
 
 </body>
 </html>
