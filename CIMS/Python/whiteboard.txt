@@ -1,53 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Users</title>
-</head>
+app.py
+===================
+from flask import Flask, jsonify, render_template
+import requests
 
-<body>
+app = Flask(__name__)
 
-<h2>Users</h2>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-        </tr>
-    </thead>
+# Home page
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-    <tbody id="userTable">
-    </tbody>
-</table>
 
-<script>
+# Get all users
+@app.route("/api/users")
+def get_users():
 
-fetch("http://127.0.0.1:5000/api/users")
-    .then(response => response.json())
-    .then(data => {
+    response = requests.get("https://dummyjson.com/users")
 
-        let rows = "";
+    return jsonify(response.json())
 
-        data.users.forEach(user => {
 
-            rows += `
-                <tr>
-                    <td>${user.id}</td>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.email}</td>
-                </tr>
-            `;
+# Get one user by ID
+@app.route("/api/users/<int:user_id>")
+def get_user(user_id):
 
-        });
+    response = requests.get(
+        f"https://dummyjson.com/users/{user_id}"
+    )
 
-        document.getElementById("userTable").innerHTML = rows;
+    return jsonify(response.json())
 
-    });
 
-</script>
-
-</body>
-</html>
+app.run(debug=True)
+===================
