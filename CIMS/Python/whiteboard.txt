@@ -1,159 +1,66 @@
-app.py
-===================
-from flask import Flask, jsonify, render_template
-import requests
-
-app = Flask(__name__)
-
-
-# Home page
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-# Get all users
-@app.route("/api/users")
-def get_users():
-
-    response = requests.get("https://dummyjson.com/users")
-
-    return jsonify(response.json())
-
-
-# Get one user by ID
-@app.route("/api/users/<int:user_id>")
-def get_user(user_id):
-
-    response = requests.get(
-        f"https://dummyjson.com/users/{user_id}"
-    )
-
-    return jsonify(response.json())
-
-
-app.run(debug=True)
-===================
-
-
-
-index.html
-===========
-
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Users</title>
+    <title>Password Hashing Demo</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            width: 700px;
+            margin: 50px auto;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+        }
+
+        button {
+            padding: 10px 20px;
+        }
+
+        .box {
+            background: #f2f2f2;
+            padding: 20px;
+            margin-top: 20px;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 
 <body>
 
-<h2>Users</h2>
+<h1>Flask Password Hashing Demo</h1>
 
-<table border="1" cellpadding="10">
+<form method="POST">
 
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+    <label>Enter Password:</label>
+    <br><br>
 
-    <tbody id="userTable">
-    </tbody>
+    <input type="password" name="password" required>
 
-</table>
+    <br><br>
 
+    <button type="submit">Hash Password</button>
 
-<h2>Selected User</h2>
+</form>
 
-<div id="selectedUser"></div>
+{% if hash_value %}
 
+<div class="box">
 
-<script>
+    <h3>Original Password</h3>
+    <p>••••••••</p>
 
-// Get all users
-fetch("/api/users")
+    <h3>Generated Hash</h3>
+    <p>{{ hash_value }}</p>
 
-    .then(response => response.json())
+    <h3>Verification Result</h3>
+    <p>{{ result }}</p>
 
-    .then(data => {
+</div>
 
-        let rows = "";
-
-        data.users.forEach(user => {
-
-            rows += `
-                <tr>
-
-                    <td>
-                        <img src="${user.image}"
-                             width="60"
-                             height="60">
-                    </td>
-
-                    <td>${user.id}</td>
-
-                    <td>${user.firstName}</td>
-
-                    <td>${user.lastName}</td>
-
-                    <td>${user.email}</td>
-
-                    <td>
-                        <button onclick="viewUser(${user.id})">
-                            View
-                        </button>
-                    </td>
-
-                </tr>
-            `;
-
-        });
-
-        document.getElementById("userTable").innerHTML = rows;
-
-    });
-
-
-// Get one user
-function viewUser(userId) {
-
-    fetch(`/api/users/${userId}`)
-
-        .then(response => response.json())
-
-        .then(user => {
-
-            document.getElementById("selectedUser").innerHTML = `
-
-                <img src="${user.image}"
-                     width="120">
-
-                <h3>
-                    ${user.firstName} ${user.lastName}
-                </h3>
-
-                <p>ID: ${user.id}</p>
-
-                <p>Email: ${user.email}</p>
-
-                <p>Phone: ${user.phone}</p>
-
-            `;
-
-        });
-
-}
-
-</script>
+{% endif %}
 
 </body>
-
 </html>
-=======================
