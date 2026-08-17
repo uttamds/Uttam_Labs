@@ -1,9 +1,61 @@
+from flask import Flask, render_template, request
+import bcrypt
+
+app = Flask(__name__)
+
+
+@app.route("/", methods=["GET", "POST"])
+def password_demo():
+
+    hash_value = None
+    result = None
+
+    if request.method == "POST":
+
+        password = request.form["password"]
+
+        # Convert password to bytes
+        password_bytes = password.encode()
+
+        # Generate hash
+        hash_value = bcrypt.hashpw(
+            password_bytes,
+            bcrypt.gensalt()
+        ).decode()
+
+        # Verify password
+        if bcrypt.checkpw(
+            password_bytes,
+            hash_value.encode()
+        ):
+            result = "Password is CORRECT"
+        else:
+            result = "Password is INCORRECT"
+
+    return render_template(
+        "password.html",
+        hash_value=hash_value,
+        result=result
+    )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+=======
+password.html
+========
+
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Password Hashing Demo</title>
+    <title>bcrypt Password Hashing</title>
 
     <style>
+
         body {
             font-family: Arial;
             width: 700px;
@@ -25,37 +77,51 @@
             margin-top: 20px;
             word-wrap: break-word;
         }
+
     </style>
 </head>
 
 <body>
 
-<h1>Flask Password Hashing Demo</h1>
+<h1>bcrypt Password Hashing Demo</h1>
 
 <form method="POST">
 
     <label>Enter Password:</label>
-    <br><br>
-
-    <input type="password" name="password" required>
 
     <br><br>
 
-    <button type="submit">Hash Password</button>
+    <input
+        type="password"
+        name="password"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Hash Password
+    </button>
 
 </form>
+
 
 {% if hash_value %}
 
 <div class="box">
 
     <h3>Original Password</h3>
-    <p>••••••••</p>
 
-    <h3>Generated Hash</h3>
+    <p>Not stored!</p>
+
+
+    <h3>bcrypt Hash</h3>
+
     <p>{{ hash_value }}</p>
 
-    <h3>Verification Result</h3>
+
+    <h3>Verification</h3>
+
     <p>{{ result }}</p>
 
 </div>
@@ -63,4 +129,5 @@
 {% endif %}
 
 </body>
+
 </html>
