@@ -38,6 +38,9 @@ def password_demo():
         result=result
     )
 
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 ====================
 password.html
@@ -128,5 +131,4 @@ password.html
 </html>
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
