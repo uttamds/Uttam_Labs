@@ -1,66 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Password Hashing Demo</title>
+from flask import Flask, request, render_template
+from werkzeug.security import generate_password_hash, check_password_hash
 
-    <style>
-        body {
-            font-family: Arial;
-            width: 700px;
-            margin: 50px auto;
-        }
+app = Flask(__name__)
 
-        input {
-            padding: 10px;
-            width: 300px;
-        }
+@app.route("/", methods=["GET", "POST"])
+def password_demo():
 
-        button {
-            padding: 10px 20px;
-        }
+    hash_value = None
+    result = None
 
-        .box {
-            background: #f2f2f2;
-            padding: 20px;
-            margin-top: 20px;
-            word-wrap: break-word;
-        }
-    </style>
-</head>
+    if request.method == "POST":
 
-<body>
+        password = request.form["password"]
 
-<h1>Flask Password Hashing Demo</h1>
+        # Create hash
+        hash_value = generate_password_hash(password)
 
-<form method="POST">
+        # Verify password
+        if check_password_hash(hash_value, password):
+            result = "Password is CORRECT"
+        else:
+            result = "Password is INCORRECT"
 
-    <label>Enter Password:</label>
-    <br><br>
+    return render_template(
+        "password.html",
+        hash_value=hash_value,
+        result=result
+    )
 
-    <input type="password" name="password" required>
-
-    <br><br>
-
-    <button type="submit">Hash Password</button>
-
-</form>
-
-{% if hash_value %}
-
-<div class="box">
-
-    <h3>Original Password</h3>
-    <p>••••••••</p>
-
-    <h3>Generated Hash</h3>
-    <p>{{ hash_value }}</p>
-
-    <h3>Verification Result</h3>
-    <p>{{ result }}</p>
-
-</div>
-
-{% endif %}
-
-</body>
-</html>
+if __name__ == "__main__":
+    app.run(debug=True)
