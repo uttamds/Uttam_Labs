@@ -1,4 +1,3 @@
-Absolutely. I would structure this as a **student-facing learning module**, starting from the problem APIs solve and gradually arriving at REST, HTTP, CRUD, JSON, authentication, and Flask.
 
 # REST API Journey
 
